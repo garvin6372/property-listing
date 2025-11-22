@@ -1,0 +1,3 @@
+-- This migration file is a placeholder to indicate that we've moved from Supabase Auth
+-- to custom authentication with hashed passwords for admin users.
+-- No actual SQL changes are needed for this migration.

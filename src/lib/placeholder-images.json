@@ -1,0 +1,118 @@
+{
+  "placeholderImages": [
+    {
+      "id": "dubai-villa-1",
+      "description": "Luxurious modern villa in Dubai with a pool",
+      "imageUrl": "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxtb2Rlcm4lMjB2aWxsYXxlbnwwfHx8fDE3NjM0Mzg4MjN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "modern villa"
+    },
+    {
+      "id": "dubai-villa-2",
+      "description": "Exterior view of a contemporary Dubai villa at dusk",
+      "imageUrl": "https://images.unsplash.com/photo-1696781689902-324b04bfa230?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHx2aWxsYSUyMGV4dGVyaW9yfGVufDB8fHx8MTc2MzQ4Njc2NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "villa exterior"
+    },
+    {
+      "id": "dubai-penthouse-1",
+      "description": "Spacious penthouse living room with city views in Dubai",
+      "imageUrl": "https://images.unsplash.com/photo-1632743441209-8a09b8a37e25?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxsdXh1cnklMjBhcGFydG1lbnR8ZW58MHx8fHwxNzYzNDQzNjA0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "luxury apartment"
+    },
+    {
+      "id": "dubai-penthouse-2",
+      "description": "Modern kitchen in a Dubai penthouse",
+      "imageUrl": "https://images.unsplash.com/photo-1628745277862-bc0b2d68c50c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtb2Rlcm4lMjBraXRjaGVufGVufDB8fHx8MTc2MzQyNjY3NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "modern kitchen"
+    },
+    {
+      "id": "london-apartment-1",
+      "description": "Chic and stylish living room in a central London apartment",
+      "imageUrl": "https://images.unsplash.com/photo-1745429523635-ad375f836bf2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxzdHlsaXNoJTIwYXBhcnRtZW50fGVufDB8fHx8MTc2MzQ2NzAzMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "stylish apartment"
+    },
+    {
+      "id": "london-apartment-2",
+      "description": "Cozy bedroom in a London flat with a view of the street",
+      "imageUrl": "https://images.unsplash.com/photo-1703782498522-f9c2b9c1bc25?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjb3p5JTIwYmVkcm9vbXxlbnwwfHx8fDE3NjM0NTI0MzV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cozy bedroom"
+    },
+    {
+      "id": "dubai-townhouse-1",
+      "description": "Family-friendly townhouse in a Dubai community",
+      "imageUrl": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxmYW1pbHklMjBob3VzZXxlbnwwfHx8fDE3NjM0ODUxNzh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "family house"
+    },
+    {
+      "id": "london-townhouse-1",
+      "description": "Classic brick townhouse in a London neighborhood",
+      "imageUrl": "https://images.unsplash.com/photo-1708191465576-3e9f275f944c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxicmljayUyMGhvdXNlfGVufDB8fHx8MTc2MzQ4Njc2NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "brick house"
+    },
+    {
+      "id": "dubai-office-1",
+      "description": "Modern open-plan office space in a Dubai business tower",
+      "imageUrl": "https://images.unsplash.com/photo-1559136555-9303baea8ebd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxtb2Rlcm4lMjBvZmZpY2V8ZW58MHx8fHwxNzYzNDU5ODUwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "modern office"
+    },
+    {
+      "id": "london-office-1",
+      "description": "Creative office space in a renovated London warehouse",
+      "imageUrl": "https://images.unsplash.com/photo-1718220268527-4477fd170775?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxjcmVhdGl2ZSUyMG9mZmljZXxlbnwwfHx8fDE3NjM0ODY3NjV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "creative office"
+    },
+    {
+      "id": "dubai-apartment-1",
+      "description": "Sleek apartment with balcony overlooking Dubai Marina",
+      "imageUrl": "https://images.unsplash.com/photo-1717199770192-9e8eeca1bd64?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Y2l0eSUyMGFwYXJ0bWVudHxlbnwwfHx8fDE3NjM0NTI4NDd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "city apartment"
+    },
+    {
+      "id": "dubai-apartment-2",
+      "description": "High-floor apartment bedroom with stunning city views",
+      "imageUrl": "https://images.unsplash.com/photo-1575644747467-4ec4740931ca?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxiZWRyb29tJTIwdmlld3xlbnwwfHx8fDE3NjM0NjIwMzR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "bedroom view"
+    },
+    {
+      "id": "london-villa-1",
+      "description": "Grand suburban villa on the outskirts of London",
+      "imageUrl": "https://images.unsplash.com/photo-1628624747186-a941c476b7ef?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdWJ1cmJhbiUyMGhvdXNlfGVufDB8fHx8MTc2MzQzMjQwNHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "suburban house"
+    },
+    {
+      "id": "london-penthouse-1",
+      "description": "Exclusive penthouse with a terrace overlooking the Thames",
+      "imageUrl": "https://images.unsplash.com/photo-1667157485464-382fab4519f5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxyb29mdG9wJTIwdGVycmFjZXxlbnwwfHx8fDE3NjM0NzM0Nzd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "rooftop terrace"
+    },
+    {
+      "id": "dubai-offplan-1",
+      "description": "Architectural rendering of an off-plan development in Dubai",
+      "imageUrl": "https://images.unsplash.com/photo-1633109781319-5f86bbf94a2c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxhcmNoaXRlY3R1cmFsJTIwcmVuZGVyaW5nfGVufDB8fHx8MTc2MzQzODY1OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "architectural rendering"
+    },
+    {
+      "id": "skyvera-logo",
+      "description": "Skyvera Listings Logo",
+      "imageUrl": "https://images.unsplash.com/photo-1691737830898-448660652fe8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Z2VvbWV0cmljJTIwbG9nb3xlbnwwfHx8fDE3NjM0NzkyNTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "geometric logo"
+    },
+    {
+      "id": "skyvera-logo-dark",
+      "description": "Skyvera Listings Logo Dark",
+      "imageUrl": "https://i.imgur.com/OfQixs8.png",
+      "imageHint": "geometric logo"
+    },
+    {
+      "id": "skyvera-logo-blue",
+      "description": "Skyvera Listings Logo Blue",
+      "imageUrl": "https://i.imgur.com/4l1A4V8.png",
+      "imageHint": "geometric logo"
+    },
+    {
+      "id": "valuation-hero",
+      "description": "A happy family lying on a bed looking up at the camera",
+      "imageUrl": "https://images.unsplash.com/photo-1592711491694-e85f60a7773a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxoYXBweSUyMGZhbWlseXxlbnwwfHx8fDE3NjM3NTU1Nzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "happy family"
+    }
+  ]
+}
