@@ -29,8 +29,8 @@ interface InquiryFormProps {
 }
 
 function SubmitButton() {
-    const { pending } = useFormStatus();
-    return <Button type="submit" disabled={pending} className="w-full">{pending ? "Sending..." : "Send Inquiry"}</Button>;
+  const { pending } = useFormStatus();
+  return <Button type="submit" disabled={pending} className="w-full">{pending ? "Sending..." : "Send Inquiry"}</Button>;
 }
 
 export function InquiryForm({ propertyId, propertyTitle }: InquiryFormProps) {
@@ -45,7 +45,7 @@ export function InquiryForm({ propertyId, propertyTitle }: InquiryFormProps) {
         description: `We've received your inquiry for ${propertyTitle}. Our team will be in touch shortly.`,
       });
     } else if (state.message?.includes('Error') || state.message?.includes('Failed')) {
-       toast({
+      toast({
         variant: "destructive",
         title: "Something went wrong",
         description: state.message,
@@ -62,7 +62,7 @@ export function InquiryForm({ propertyId, propertyTitle }: InquiryFormProps) {
       <CardContent>
         <form action={dispatch} className="space-y-4">
           <input type="hidden" name="propertyId" value={propertyId} />
-          
+
           <div className="space-y-2">
             <Label htmlFor="name">Full Name</Label>
             <Input id="name" name="name" placeholder="John Doe" required />
@@ -74,25 +74,25 @@ export function InquiryForm({ propertyId, propertyTitle }: InquiryFormProps) {
             <Input id="email" name="email" type="email" placeholder="you@example.com" required />
             {state.errors?.email && <p className="text-sm text-destructive">{state.errors.email[0]}</p>}
           </div>
-          
+
           <div className="space-y-2">
             <Label htmlFor="phone">Phone Number</Label>
             <Input id="phone" name="phone" type="tel" placeholder="+1 (555) 000-0000" required />
             {state.errors?.phone && <p className="text-sm text-destructive">{state.errors.phone[0]}</p>}
           </div>
-          
+
           <div className="space-y-2">
             <Label htmlFor="message">Message (Optional)</Label>
             <Textarea id="message" name="message" placeholder="I'm interested in this property and would like to schedule a viewing." />
-             {state.errors?.message && <p className="text-sm text-destructive">{state.errors.message[0]}</p>}
+            {state.errors?.message && <p className="text-sm text-destructive">{state.errors.message[0]}</p>}
           </div>
-          
+
           <SubmitButton />
-          
+
           <div className="mt-4">
-            <Button 
+            <Button
               type="button"
-              onClick={() => window.open('https://wa.me/919537681372', '_blank')}
+              onClick={() => window.open('https://wa.me/447471219260', '_blank')}
               className="w-full bg-green-500 hover:bg-green-600"
             >
               Chat on WhatsApp

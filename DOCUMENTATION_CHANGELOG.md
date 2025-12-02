@@ -1,6 +1,6 @@
 # Documentation Changelog
 
-This file tracks all documentation changes and additions to the Skyline Property Listing project.
+This file tracks all documentation changes and additions to the Skyvera Property Listing project.
 
 ---
 

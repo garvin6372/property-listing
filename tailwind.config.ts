@@ -10,9 +10,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['Inter', 'sans-serif'],
-        headline: ['Inter', 'sans-serif'],
-        serif: ['Playfair Display', 'serif'],
+        body: ['Montserrat', 'serif'],
+        headline: ['Cormorant Garamond', 'serif'],
+        serif: ['Montserrat', 'serif'],
         code: ['monospace'],
       },
       colors: {

@@ -38,7 +38,7 @@ export default function SiteHeader() {
                         </SheetTrigger>
                         <SheetContent side="left" className="pr-0">
                             <Link href="/" className="flex items-center space-x-2 mb-6" onClick={() => setIsMobileMenuOpen(false)}>
-                                <span className="font-serif text-2xl font-bold tracking-tight">Skyline</span>
+                                <span className="font-serif text-2xl font-bold tracking-tight">Skyvera</span>
                             </Link>
                             <div className="flex flex-col space-y-2">
                                 {navLinks.map(link => (
@@ -69,7 +69,7 @@ export default function SiteHeader() {
 
                 <div className="flex items-center">
                     <Link href="/" className="flex items-center space-x-2">
-                        <span className="font-serif text-2xl font-bold tracking-tight">Skyline</span>
+                        <span className="font-serif text-2xl font-bold tracking-tight">Skyvera</span>
                     </Link>
                 </div>
 

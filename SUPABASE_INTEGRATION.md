@@ -1,6 +1,6 @@
 # Supabase Integration Guide
 
-This document explains how Supabase has been integrated into the Skyline Property Listing application.
+This document explains how Supabase has been integrated into the Skyvera Property Listing application.
 
 ## Overview
 

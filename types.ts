@@ -44,8 +44,22 @@ export enum LoadingState {
     SUCCESS = 'SUCCESS'
 }
 
-export type ViewState =
-    | { type: 'home' }
-    | { type: 'property', property: Property }
-    | { type: 'journal', article: JournalArticle }
-    | { type: 'inquiry' }; // Changed from checkout
+export enum ViewState {
+  LOADING,
+  LANDING,
+}
+
+export interface SearchCriteria {
+  location?: string;
+  minPrice?: number;
+  maxPrice?: number;
+  beds?: number;
+  type?: string;
+  description?: string; // For explaining what the AI understood
+}
+
+export interface MarketDataPoint {
+  month: string;
+  avgPrice: number;
+  listings: number;
+}

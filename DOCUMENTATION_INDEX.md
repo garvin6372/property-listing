@@ -1,6 +1,6 @@
 # Documentation Index
 
-Welcome to the Skyline Property Listing documentation! This index will help you find the right documentation for your needs.
+Welcome to the Skyvera Property Listing documentation! This index will help you find the right documentation for your needs.
 
 ## 📖 Documentation Files
 

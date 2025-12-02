@@ -1,6 +1,6 @@
 # Developer Guide - Common Tasks
 
-This guide covers common development tasks and how to accomplish them in the Skyline Property Listing application.
+This guide covers common development tasks and how to accomplish them in the Skyvera Property Listing application.
 
 ## Table of Contents
 

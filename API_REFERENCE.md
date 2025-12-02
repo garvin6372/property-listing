@@ -1,4 +1,4 @@
-# API Reference - Skyline Property Listing
+# API Reference - Skyvera Property Listing
 
 ## Table of Contents
 1. [Server Actions](#server-actions)

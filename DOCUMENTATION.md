@@ -1,4 +1,4 @@
-# Skyline Property Listing - Complete Documentation
+# Skyvera Property Listing - Complete Documentation
 
 ## Table of Contents
 1. [Project Overview](#project-overview)
@@ -19,7 +19,7 @@
 
 ## Project Overview
 
-**Skyline Property Listing** (also known as Skyvera Listings) is a modern, full-stack real estate property listing application built with Next.js 15. The platform allows users to browse properties in Dubai and London, submit inquiries, request property valuations, and provides a comprehensive admin dashboard for property management.
+**Skyvera Property Listing** (also known as Skyvera Listings) is a modern, full-stack real estate property listing application built with Next.js 15. The platform allows users to browse properties in Dubai and London, submit inquiries, request property valuations, and provides a comprehensive admin dashboard for property management.
 
 ### Key Capabilities
 - Browse and search properties across Dubai and London

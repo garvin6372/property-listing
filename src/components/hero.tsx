@@ -55,11 +55,10 @@ const Hero: React.FC = () => {
                         Curated Living Spaces
                     </span>
                     <h1 className="text-6xl md:text-8xl lg:text-9xl font-serif font-normal text-white tracking-tight mb-8 drop-shadow-sm">
-                        Find your <span className="italic text-white">sanctuary.</span>
+                        Discover Your Dream Home.
                     </h1>
                     <p className="max-w-lg mx-0 md:mx-auto text-lg md:text-xl text-white/90 font-light leading-relaxed mb-12 text-shadow-sm">
-                        Architecture that respects the landscape. <br />
-                        Homes designed for silence, light, and life.
+                        Your Trusted Real Estate Partner
                     </p>
 
                     <a

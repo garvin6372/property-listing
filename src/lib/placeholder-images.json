@@ -113,6 +113,18 @@
       "description": "A happy family lying on a bed looking up at the camera",
       "imageUrl": "https://images.unsplash.com/photo-1592711491694-e85f60a7773a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxoYXBweSUyMGZhbWlseXxlbnwwfHx8fDE3NjM3NTU1Nzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "happy family"
+    },
+    {
+      "id": "london-Skyvera",
+      "description": "London Skyvera with Tower Bridge",
+      "imageUrl": "https://images.unsplash.com/photo-1529655683826-1c32130bf535?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.1.0",
+      "imageHint": "london Skyvera"
+    },
+    {
+      "id": "dubai-Skyvera",
+      "description": "Dubai Skyvera with Burj Khalifa",
+      "imageUrl": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=2070&auto=format&fit=crop",
+      "imageHint": "dubai Skyvera"
     }
   ]
 }

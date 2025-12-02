@@ -1,6 +1,6 @@
-# Quick Start Guide - Skyline Property Listing
+# Quick Start Guide - Skyvera Property Listing
 
-This guide will help you get the Skyline Property Listing application up and running in under 10 minutes.
+This guide will help you get the Skyvera Property Listing application up and running in under 10 minutes.
 
 ## Prerequisites Checklist
 
@@ -33,7 +33,7 @@ npm install
 1. Go to [supabase.com](https://supabase.com)
 2. Click "New Project"
 3. Fill in project details:
-   - **Name**: Skyline Properties
+   - **Name**: Skyvera Properties
    - **Database Password**: Choose a strong password
    - **Region**: Select closest to you
 4. Click "Create new project"

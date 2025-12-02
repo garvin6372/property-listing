@@ -87,3 +87,44 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Custom Loading Screen Animations */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* SVG Drawing Animations */
+.path-draw {
+  stroke-dasharray: 50000;
+  stroke-dashoffset: 50000;
+  animation: draw 3s ease-in-out forwards;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.fill-animation {
+  fill-opacity: 0;
+  transition: fill-opacity 1s ease-in-out;
+}
+
+.fill-active {
+  fill-opacity: 1;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
