@@ -18,7 +18,7 @@ export function PropertyCard({ property }: PropertyCardProps) {
   const displayStatus = property.dubaiStatus && (property.dubaiStatus as string) !== 'none' ? property.dubaiStatus : property.status;
 
   return (
-    <Card className="w-full overflow-hidden group border-none shadow-sm hover:shadow-xl transition-all duration-500 bg-card">
+    <Card className="w-full overflow-hidden group border-none shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 bg-card">
       <div className="relative aspect-[4/3] overflow-hidden rounded-t-lg">
         <Link href={`/properties/${property.id}`} aria-label={property.title}>
           <Image

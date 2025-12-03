@@ -5,6 +5,7 @@ import LayoutWrapper from '@/components/layout-wrapper';
 import { SupabaseAuthProvider } from '@/contexts/supabase-auth-context';
 import { WhatsAppButton } from '@/components/whatsapp-button';
 import { ThemeProvider } from '@/contexts/theme-context';
+import { FilterProvider } from '@/contexts/filter-context';
 
 export const metadata: Metadata = {
   title: {
@@ -22,6 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <link rel="icon" href="/icon.png" sizes="any" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
@@ -31,9 +33,11 @@ export default function RootLayout({
       <body className="font-body antialiased min-h-screen flex flex-col" suppressHydrationWarning>
         <ThemeProvider>
           <SupabaseAuthProvider>
-            <LayoutWrapper>{children}</LayoutWrapper>
-            <Toaster />
-            <WhatsAppButton />
+            <FilterProvider>
+              <LayoutWrapper>{children}</LayoutWrapper>
+              <Toaster />
+              <WhatsAppButton />
+            </FilterProvider>
           </SupabaseAuthProvider>
         </ThemeProvider>
       </body>

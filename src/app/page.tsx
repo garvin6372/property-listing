@@ -5,7 +5,7 @@ import { HeroSearch } from "@/components/hero-search";
 import { Card } from "@/components/ui/card";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
-import { getClientProperties } from '@/lib/data';
+import { getClientFeaturedProperties } from '@/lib/data';
 import { PropertyCard } from '@/components/property-card';
 import { Button } from "@/components/ui/button";
 import Hero from "@/components/hero";
@@ -15,12 +15,12 @@ import { ViewState } from '../../types';
 import LoadingScreen from '@/components/LoadingScreen';
 
 export default function Home() {
-  const [featuredProperties, setFeaturedProperties] = React.useState<Awaited<ReturnType<typeof getClientProperties>>>([]);
+  const [featuredProperties, setFeaturedProperties] = React.useState<Awaited<ReturnType<typeof getClientFeaturedProperties>>>([]);
   const [viewState, setViewState] = useState<ViewState>(ViewState.LOADING);
 
   React.useEffect(() => {
     // Get featured properties (first 6)
-    getClientProperties().then(properties => {
+    getClientFeaturedProperties().then(properties => {
       setFeaturedProperties(properties.slice(0, 6));
     });
   }, []);
@@ -68,25 +68,27 @@ export default function Home() {
         {/* <HeroSearch /> */}
 
         {/* Featured Properties Section */}
-        <div id="featured-properties" className="container mx-auto px-4 py-24">
+        <div id="featured-properties" className="container mx-auto px-4 py-24 scroll-mt-28">
           <div className="flex flex-col md:flex-row items-end justify-between mb-12 gap-6">
             <div className="max-w-2xl">
               <span className="text-sm font-medium uppercase tracking-widest text-muted-foreground mb-2 block">Exclusive Listings</span>
-              <h2 className="text-4xl md:text-5xl font-serif text-[#2C2A26] leading-tight">
+              <h2 className="text-4xl md:text-5xl font-serif text-[#2C2A26] dark:text-white leading-tight">
                 Featured Properties
               </h2>
               <p className="text-muted-foreground mt-4 text-lg font-light">
                 Discover our handpicked selection of premium properties in prime locations.
               </p>
             </div>
-            <Button asChild variant="outline" className="rounded-full px-8 h-12 border-[#2C2A26] text-[#2C2A26] hover:bg-[#2C2A26] hover:text-white transition-all duration-300">
+            <Button asChild variant="outline" className="rounded-full px-8 h-12 border-[#2C2A26] text-[#2C2A26] hover:bg-[#2C2A26] hover:text-white dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-[#2C2A26] transition-all duration-300">
               <Link href="/search">View All Properties</Link>
             </Button>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredProperties.map((property) => (
-              <PropertyCard key={property.id} property={property} />
+            {featuredProperties.map((property, index) => (
+              <div key={property.id} className="animate-fade-in-up" style={{ animationDelay: `${index * 150}ms`, animationFillMode: 'both' }}>
+                <PropertyCard property={property} />
+              </div>
             ))}
           </div>
 
@@ -102,9 +104,9 @@ export default function Home() {
           <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row justify-between items-start mb-16 gap-8">
               <div>
-                <span className="text-sm font-medium uppercase tracking-widest text-white/60 mb-2 block">Our Expertise</span>
+                {/* <span className="text-sm font-medium uppercase tracking-widest text-white/60 mb-2 block">Our Expertise</span> */}
                 <h2 className="text-4xl md:text-5xl font-serif text-white leading-tight">
-                  When you need experts
+                  Our services
                 </h2>
               </div>
               <p className="max-w-md text-white/70 font-light text-lg">

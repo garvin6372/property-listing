@@ -87,10 +87,10 @@ function SearchContent() {
     return (
         <div className="bg-background">
             {/* Search Bar Section */}
-            <div className="bg-white border-b border-gray-100 py-12">
+            <div className="border-b border-gray-100 py-12">
                 <div className="container mx-auto px-4">
                     <form onSubmit={handleSearch} className="max-w-4xl mx-auto">
-                        <h1 className="text-3xl md:text-4xl font-serif text-[#2C2A26] mb-8 text-center">
+                        <h1 className="text-3xl md:text-4xl font-serif mb-8 text-center">
                             Find your perfect property
                         </h1>
                         <div className="flex flex-col md:flex-row gap-4">
@@ -119,10 +119,8 @@ function SearchContent() {
 
             <div className="container mx-auto px-4 py-8">
                 <div className="lg:grid lg:grid-cols-12 lg:gap-8">
-                    <aside className="lg:col-span-3 mb-8 lg:mb-0">
-                        <PropertyFilters />
-                    </aside>
-                    <main className="lg:col-span-9">
+                    <PropertyFilters />
+                    <main className="lg:col-span-12">
                         <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-4">
                             <h1 className="text-2xl font-serif font-medium tracking-tight text-[#2C2A26] dark:text-white">Properties <span className="text-muted-foreground font-light text-lg">({filteredProperties.length} properties found)</span></h1>
                             <div className="flex items-center gap-2 w-full md:w-auto">

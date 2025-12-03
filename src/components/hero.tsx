@@ -9,28 +9,6 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 const Hero: React.FC = () => {
-    const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
-        e.preventDefault();
-        const element = document.getElementById(targetId);
-        if (element) {
-            // Manual scroll calculation to account for fixed header
-            const headerOffset = 100;
-            const elementPosition = element.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.scrollY - headerOffset;
-
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: "smooth"
-            });
-
-            // Update URL hash without jumping, safely ignoring errors in sandboxed environments
-            try {
-                window.history.pushState(null, '', `#${targetId}`);
-            } catch (err) {
-                // Ignore SecurityError in restricted environments
-            }
-        }
-    };
 
     return (
         <section className="relative w-full h-screen min-h-[800px] overflow-hidden bg-gray-200">
@@ -61,13 +39,12 @@ const Hero: React.FC = () => {
                         Your Trusted Real Estate Partner
                     </p>
 
-                    <a
+                    <Link
                         href="#featured-properties"
-                        onClick={(e) => handleNavClick(e, 'featured-properties')}
                         className="group relative px-10 py-4 bg-white text-[#2C2A26] rounded-full text-sm font-semibold uppercase tracking-widest hover:bg-gray-50 transition-all duration-50 overflow-hidden shadow-lg hover:shadow-xl inline-block"
                     >
                         <span className="relative z-10 group-hover:text-[#2C2A26]">Explore Listings</span>
-                    </a>
+                    </Link>
                 </div>
                 <Button className="rounded-full data-[state=active]:bg-white data-[state=active]:shadow-sm transition-all duration-300">
                     <Link href="/valuation">Get a Free Valuation</Link>

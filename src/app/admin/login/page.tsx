@@ -88,11 +88,11 @@ function LoginContent() {
             )}
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
-              <Input id="email" name="email" type="email" placeholder="admin@skyvera.com" defaultValue="admin@skyvera.com" required />
+              <Input id="email" name="email" type="email" placeholder="email" required />
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
-              <Input id="password" name="password" type="password" defaultValue="password" required />
+              <Input id="password" name="password" type="password" required />
             </div>
           </CardContent>
           <CardFooter>

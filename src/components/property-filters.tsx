@@ -1,7 +1,6 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Label } from "./ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { regions } from "@/lib/data";
@@ -12,15 +11,17 @@ import React, { useState, useEffect } from "react";
 import { Filter, Search, X } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
 import { ToggleGroup, ToggleGroupItem } from "./ui/toggle-group";
-import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "./ui/sheet";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { ScrollArea } from "./ui/scroll-area";
 import { getLocations } from "@/lib/data";
+import { useFilter } from "@/contexts/filter-context";
 
 function FiltersContent() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { setFilterVisible } = useFilter();
 
   const [currentFilters, setCurrentFilters] = useState({
     region: searchParams.get('region') || 'Dubai',
@@ -89,6 +90,7 @@ function FiltersContent() {
     if (priceRange[1] < 50000000) params.set('maxPrice', priceRange[1].toString());
 
     router.push(`${pathname}?${params.toString()}`);
+    setFilterVisible(false);
   }
 
   const clearFilters = () => {
@@ -102,22 +104,20 @@ function FiltersContent() {
   const isFilterActive = searchParams.toString().length > 0;
 
   return (
-    <Card className="shadow-sm border-none bg-card lg:sticky lg:top-24">
-      <CardHeader className="pb-4 border-b border-border/50">
-        <CardTitle className="flex items-center justify-between">
-          <div className="flex items-center gap-2 font-serif text-xl font-medium text-[#2C2A26] dark:text-white">
-            <Filter className="w-5 h-5" />
-            Filter Properties
-          </div>
-          {isFilterActive && (
-            <Button variant="ghost" size="sm" onClick={clearFilters} className="text-sm h-auto p-1 hover:bg-transparent hover:text-[#2C2A26] dark:hover:text-white transition-colors">
-              <X className="w-4 h-4 mr-1" />
-              Clear
-            </Button>
-          )}
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-6 pt-6">
+    <div className="space-y-6">
+      <div className="flex items-center justify-between pb-4 border-b border-border/50">
+        <SheetTitle className="flex items-center gap-2 font-serif text-xl font-medium text-[#2C2A26] dark:text-white">
+          <Filter className="w-5 h-5" />
+          Filter Properties
+        </SheetTitle>
+        {isFilterActive && (
+          <Button variant="ghost" size="sm" onClick={clearFilters} className="text-sm h-auto p-1 hover:bg-transparent hover:text-[#2C2A26] dark:hover:text-white transition-colors">
+            <X className="w-4 h-4 mr-1" />
+            Clear
+          </Button>
+        )}
+      </div>
+      <div className="space-y-6 pt-6">
         <div className="space-y-3">
           <Label className="text-xs uppercase tracking-widest text-muted-foreground font-medium">Region</Label>
           <ToggleGroup
@@ -209,32 +209,21 @@ function FiltersContent() {
           <Search className="w-4 h-4 mr-2" />
           Search Properties
         </Button>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }
 
-
 export function PropertyFilters() {
-  const isMobile = useIsMobile();
+  const { isFilterVisible, setFilterVisible } = useFilter();
 
-  if (isMobile) {
-    return (
-      <Sheet>
-        <SheetTrigger asChild>
-          <Button variant="outline" className="w-full">
-            <Filter className="w-4 h-4 mr-2" />
-            Filters
-          </Button>
-        </SheetTrigger>
-        <SheetContent side="bottom" className="h-[90vh]">
-          <ScrollArea className="h-full">
-            <FiltersContent />
-          </ScrollArea>
-        </SheetContent>
-      </Sheet>
-    )
-  }
-
-  return <FiltersContent />;
+  return (
+    <Sheet open={isFilterVisible} onOpenChange={setFilterVisible}>
+      <SheetContent side="left" className="w-[300px] sm:w-[400px] overflow-y-auto">
+        <div className="py-4">
+          <FiltersContent />
+        </div>
+      </SheetContent>
+    </Sheet>
+  );
 }

@@ -9,18 +9,18 @@ interface Testimonial {
 const testimonials: Testimonial[] = [
     {
         id: 1,
-        quote: "Working with Jeremy was a pleasure. His professionalism and knowledge of the market helped us find our dream home in no time.",
-        author: "Preet.",
+        quote: "Working with Preet was a pleasure. His professionalism and knowledge of the market helped us find our dream home in no time.",
+        author: "Jeremy.",
     },
     {
         id: 2,
-        quote: "Jeremy went above and beyond to sell our property quickly and at a great price. Highly recommend his services.",
-        author: "Preet.",
+        quote: "Preet went above and beyond to sell our property quickly and at a great price. Highly recommend his services.",
+        author: "Valerie.",
     },
     {
         id: 3,
-        quote: "I couldn't be happier with the rental property Jeremy found for me. It's exactly what I was looking for.",
-        author: "Preet.",
+        quote: "I couldn't be happier with the rental property Preet found for me. It's exactly what I was looking for.",
+        author: "Brandon.",
     },
 ];
 

@@ -11,7 +11,7 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
     return (
         <>
             <SiteHeader />
-            <main className="flex-grow bg-secondary/50">{children}</main>
+            <main className="flex-1 bg-secondary/50">{children}</main>
             {!isAdminRoute && <SiteFooter />}
         </>
     );

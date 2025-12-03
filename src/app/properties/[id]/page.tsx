@@ -46,12 +46,27 @@ export default async function PropertyPage({ params }: { params: { id: string } 
       <div className="container mx-auto px-4 space-y-8">
 
         {/* Header Section */}
+        {/* Header Section */}
         <div className="flex flex-col md:flex-row justify-between items-start gap-6">
           <div className="space-y-4">
+            <div className="flex flex-wrap items-center gap-3">
+              <Badge className={`capitalize px-4 py-1.5 text-sm font-medium tracking-wide rounded-full ${property.status === 'Buy' || property.status === 'Rent' ? 'bg-[#2C2A26] text-white dark:bg-white dark:text-[#2C2A26]' : 'bg-green-600 text-white'}`}>
+                {property.status}
+              </Badge>
+              {property.dubaiStatus && (property.dubaiStatus as string) !== 'none' && (
+                <Badge variant="outline" className="text-sm px-4 py-1.5 rounded-full border-[#2C2A26] text-[#2C2A26] dark:border-white dark:text-white">
+                  {property.dubaiStatus}
+                </Badge>
+              )}
+            </div>
             <div>
               <h1 className="text-3xl md:text-5xl font-serif font-medium text-[#2C2A26] dark:text-white mb-2 leading-tight">
                 {property.title}
               </h1>
+              <div className="flex items-center text-muted-foreground text-lg font-light">
+                <MapPin className="w-5 h-5 mr-2 text-[#2C2A26] dark:text-white" />
+                <span>{property.location}</span>
+              </div>
             </div>
           </div>
           <div className="text-3xl md:text-4xl font-serif text-[#2C2A26] dark:text-white flex-shrink-0">
@@ -86,35 +101,6 @@ export default async function PropertyPage({ params }: { params: { id: string } 
               <CarouselNext className="static translate-y-0 bg-white/90 hover:bg-white border-none text-[#2C2A26] h-10 w-10" />
             </div>
           </Carousel>
-        </div>
-
-        {/* Header Section */}
-        <div className="flex flex-col md:flex-row justify-between items-start gap-6">
-          <div className="space-y-4">
-            <div className="flex flex-wrap items-center gap-3">
-              <Badge className={`capitalize px-4 py-1.5 text-sm font-medium tracking-wide rounded-full ${property.status === 'Buy' || property.status === 'Rent' ? 'bg-[#2C2A26] text-white dark:bg-white dark:text-[#2C2A26]' : 'bg-green-600 text-white'}`}>
-                {property.status}
-              </Badge>
-              {property.dubaiStatus && (property.dubaiStatus as string) !== 'none' && (
-                <Badge variant="outline" className="text-sm px-4 py-1.5 rounded-full border-[#2C2A26] text-[#2C2A26] dark:border-white dark:text-white">
-                  {property.dubaiStatus}
-                </Badge>
-              )}
-            </div>
-            <div>
-              <h1 className="text-3xl md:text-5xl font-serif font-medium text-[#2C2A26] dark:text-white mb-2 leading-tight">
-                {property.title}
-              </h1>
-              <div className="flex items-center text-muted-foreground text-lg font-light">
-                <MapPin className="w-5 h-5 mr-2 text-[#2C2A26] dark:text-white" />
-                <span>{property.location}</span>
-              </div>
-            </div>
-          </div>
-          <div className="text-3xl md:text-4xl font-serif text-[#2C2A26] dark:text-white flex-shrink-0">
-            {formatPrice(property.price, property.region === 'Dubai' ? 'AED' : 'GBP')}
-            {property.status === 'Rent' && <span className="text-lg font-sans font-normal text-muted-foreground ml-1">/year</span>}
-          </div>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">

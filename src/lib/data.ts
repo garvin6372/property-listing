@@ -73,6 +73,36 @@ export async function getClientProperties(search?: string) {
   return propertiesWithImages;
 }
 
+// Client-side functions (for use in client components)
+export async function getClientFeaturedProperties(search?: string) {
+  const client = supabaseClient();
+
+  let query = client
+    .from('properties')
+    .select('*')
+    .limit(6)
+    .order('created_at', { ascending: false });
+
+  // If search parameter exists, filter by location or region
+  if (search) {
+    query = query.or(`location.ilike.%${search}%,region.ilike.%${search}%`);
+  }
+
+  const { data, error } = await query;
+
+  if (error) {
+    console.error('Error fetching properties:', error);
+    throw new Error('Failed to fetch properties');
+  }
+
+  const propertiesWithImages = data.map((p: any) => formatProperty(p)).map((p: Property) => ({
+    ...p,
+    images: convertImageIdsToImages(p.imageIds)
+  }));
+
+  return propertiesWithImages;
+}
+
 export async function getClientPropertyById(id: string) {
   const client = supabaseClient();
   const { data, error } = await client

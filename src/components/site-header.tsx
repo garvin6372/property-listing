@@ -12,6 +12,8 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/contexts/theme-context";
+import { useFilter } from "@/contexts/filter-context";
+import { Filter } from "lucide-react";
 
 const navLinks = [
     { href: "/", label: "Properties", icon: Briefcase },
@@ -24,6 +26,7 @@ export default function SiteHeader() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const pathname = usePathname();
     const { theme, toggleTheme } = useTheme();
+    const { toggleFilter, isFilterVisible } = useFilter();
 
     return (
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -55,14 +58,14 @@ export default function SiteHeader() {
                                     </Link>
                                 ))}
                             </div>
-                            <div className="mt-6">
+                            {/* <div className="mt-6">
                                 <Button asChild className="w-full justify-center">
                                     <Link href="/admin/login">
                                         <UserCog className="h-4 w-4 mr-2" />
                                         Admin Login
                                     </Link>
                                 </Button>
-                            </div>
+                            </div> */}
                         </SheetContent>
                     </Sheet>
                 </div>
@@ -78,18 +81,25 @@ export default function SiteHeader() {
                         href="/"
                         className="transition-colors hover:text-foreground flex items-center gap-1"
                     >
-                        <Briefcase className="h-4 w-4" /> Properties
+                        <Briefcase className="h-4 w-4" /> Home
                     </Link>
                     <Link
                         href="/search"
                         className="transition-colors hover:text-foreground flex items-center gap-1"
                     >
-                        <Search className="h-4 w-4" /> Search Results
+                        <Search className="h-4 w-4" /> Search Properties
                     </Link>
                 </nav>
 
 
                 <div className="flex items-center justify-end space-x-2">
+                    {pathname === '/search' && (
+                        <Button variant="ghost" size="sm" onClick={toggleFilter} className="flex gap-2">
+                            <Filter className="h-4 w-4" />
+                            Filters
+                        </Button>
+                    )}
+
                     {/* Theme Toggle Button */}
                     <Button variant="ghost" size="icon" onClick={toggleTheme} aria-label="Toggle theme">
                         {theme === "dark" ? (
@@ -99,19 +109,15 @@ export default function SiteHeader() {
                         )}
                     </Button>
 
-                    <div className="hidden md:block">
+                    {/* <div className="hidden md:block">
                         <Button asChild>
                             <Link href="/admin/login">
                                 <UserCog className="h-4 w-4 mr-2" />
                                 Admin Login
                             </Link>
                         </Button>
-                    </div>
-                    <div className="flex items-center gap-2 md:hidden">
-                        <Button variant="ghost" size="icon">
-                            <Search className="h-5 w-5" />
-                        </Button>
-                    </div>
+                    </div> */}
+
                 </div>
             </div>
         </header>
