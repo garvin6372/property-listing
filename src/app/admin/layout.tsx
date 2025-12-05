@@ -13,7 +13,7 @@ import {
   SidebarInset,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { LayoutDashboard, Building2, MessageSquare, BadgePercent, LogOut, User, Settings } from "lucide-react";
+import { LayoutDashboard, Building2, MessageSquare, BadgePercent, LogOut, User, Settings, Mail } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
@@ -45,9 +45,19 @@ const menuItems = [
     icon: BadgePercent,
   },
   {
+    href: "/admin/consultations",
+    label: "Consultations",
+    icon: BadgePercent,
+  },
+  {
     href: "/admin/profile",
     label: "Profile",
     icon: User,
+  },
+  {
+    href: "/admin/email-settings",
+    label: "Email Settings",
+    icon: Mail,
   },
   {
     href: "/admin/property-config",

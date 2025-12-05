@@ -344,18 +344,16 @@ export function PropertyForm({ property }: PropertyFormProps) {
                   </p>
                 )}
               </div>
-              {selectedRegion === 'Dubai' && selectedStatus === 'Buy' && (
-                <div className="space-y-2">
-                  <Label htmlFor="dubaiStatus">Dubai Status</Label>
-                  <Select name="dubaiStatus" defaultValue={property?.dubaiStatus || 'none'}>
-                    <SelectTrigger><SelectValue placeholder="Select Dubai status" /></SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="none">None</SelectItem>
-                      {dubaiStatuses.map(s => <SelectItem key={s} value={s}>{s}</SelectItem>)}
-                    </SelectContent>
-                  </Select>
-                </div>
-              )}
+              <div className="space-y-2">
+                <Label htmlFor="dubaiStatus">{selectedRegion} Status</Label>
+                <Select name="dubaiStatus" defaultValue={property?.dubaiStatus || 'none'}>
+                  <SelectTrigger><SelectValue placeholder={`Select ${selectedRegion} status`} /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="none">None</SelectItem>
+                    {dubaiStatuses.map(s => <SelectItem key={s} value={s}>{s}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
             <div className="grid grid-cols-3 gap-4">
               <div className="space-y-2">

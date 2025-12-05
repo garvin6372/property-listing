@@ -24,13 +24,13 @@ export default async function ValuationsPage() {
       <h1 className="text-3xl font-bold mb-6">Valuation Requests</h1>
       <Card>
         <CardHeader>
-            <CardTitle>All Valuation Requests</CardTitle>
-            <CardDescription>
-                {valuations.length > 0 
-                    ? `You have ${valuations.length} new valuation requests.`
-                    : "There are no new valuation requests at the moment."
-                }
-            </CardDescription>
+          <CardTitle>All Valuation Requests</CardTitle>
+          <CardDescription>
+            {valuations.length > 0
+              ? `You have ${valuations.length} new valuation requests.`
+              : "There are no new valuation requests at the moment."
+            }
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="overflow-x-auto">
@@ -41,6 +41,9 @@ export default async function ValuationsPage() {
                   <TableHead>Name</TableHead>
                   <TableHead>Email</TableHead>
                   <TableHead>Phone</TableHead>
+                  <TableHead>Address</TableHead>
+                  <TableHead>Type</TableHead>
+                  <TableHead>Expected Value</TableHead>
                   <TableHead>Message</TableHead>
                 </TableRow>
               </TableHeader>
@@ -51,6 +54,9 @@ export default async function ValuationsPage() {
                     <TableCell className="font-medium">{valuation.name}</TableCell>
                     <TableCell>{valuation.email}</TableCell>
                     <TableCell>{valuation.phone}</TableCell>
+                    <TableCell>{valuation.address}</TableCell>
+                    <TableCell className="capitalize">{valuation.type}</TableCell>
+                    <TableCell>{valuation.expectedValue}</TableCell>
                     <TableCell className="max-w-md truncate">{valuation.message}</TableCell>
                   </TableRow>
                 ))}

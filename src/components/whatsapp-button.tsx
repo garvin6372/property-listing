@@ -7,9 +7,10 @@ export function WhatsAppButton() {
     const phoneNumber = "+447471219260";
 
     const handleClick = () => {
-        // WhatsApp URL format: https://wa.me/<number>
+        // WhatsApp URL format: https://wa.me/<number>?text=<encoded_message>
         // This works on both mobile and desktop
-        const whatsappUrl = `https://wa.me/${phoneNumber.replace(/[^0-9]/g, '')}`;
+        const message = encodeURIComponent("Hi, I’m interested in London/Dubai properties.");
+        const whatsappUrl = `https://wa.me/${phoneNumber.replace(/[^0-9]/g, '')}?text=${message}`;
         window.open(whatsappUrl, '_blank');
     };
 

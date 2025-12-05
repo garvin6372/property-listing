@@ -3,7 +3,7 @@ import type { PlaceHolderImages } from "./placeholder-images";
 export type Region = "Dubai" | "London";
 export type PropertyType = string; // Changed from fixed enum to string for dynamic types
 export type ListingStatus = string; // Changed from fixed enum to string for dynamic statuses
-export type DubaiStatus = "Ready" | "Off-plan";
+export type DubaiStatus = string;
 
 export type Property = {
   id: string;
@@ -38,10 +38,23 @@ export type Inquiry = {
 };
 
 export type Valuation = {
-  id:string;
+  id: string;
   name: string;
   email: string;
   phone: string;
+  message: string;
+  address?: string;
+  type?: string;
+  expectedValue?: string;
+  submittedAt: Date;
+};
+
+export type Consultation = {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  budget?: string;
   message: string;
   submittedAt: Date;
 };

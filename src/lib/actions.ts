@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { uploadPropertyImage } from "@/lib/supabase/storage";
 import { v4 as uuidv4 } from 'uuid';
+import { sendEmail, getSmtpSettings } from '@/lib/email';
 
 const propertySchema = z.object({
   id: z.string().optional(),
@@ -76,7 +77,7 @@ function formatPropertyForUpdate(property: any) {
 export async function saveProperty(prevState: any, formData: FormData) {
   const admin = supabaseAdmin();
   const id = formData.get('id') as string || undefined;
-  
+
   // Validate form data
   const validatedFields = propertySchema.safeParse({
     id,
@@ -105,53 +106,53 @@ export async function saveProperty(prevState: any, formData: FormData) {
   try {
     const { dubaiStatus, imageIds, ...rest } = validatedFields.data;
     const propertyData = {
-        ...rest,
-        // Split the comma-separated image IDs
-        imageIds: imageIds.split(',').filter(id => id.trim() !== ''),
-        dubaiStatus: validatedFields.data.region === 'Dubai' && validatedFields.data.status === 'Buy' && dubaiStatus && dubaiStatus !== 'none' ? dubaiStatus : undefined,
+      ...rest,
+      // Split the comma-separated image IDs
+      imageIds: imageIds.split(',').filter(id => id.trim() !== ''),
+      dubaiStatus: validatedFields.data.region === 'Dubai' && validatedFields.data.status === 'Buy' && dubaiStatus && dubaiStatus !== 'none' ? dubaiStatus : undefined,
     };
 
     if (id) {
-        const { data, error } = await admin
-          .from('properties')
-          .update(formatPropertyForUpdate(propertyData))
-          .eq('id', id)
-          .select()
-          .single();
-          
-        if (error) throw error;
+      const { data, error } = await admin
+        .from('properties')
+        .update(formatPropertyForUpdate(propertyData))
+        .eq('id', id)
+        .select()
+        .single();
+
+      if (error) throw error;
     } else {
-        const { data, error } = await admin
-          .from('properties')
-          .insert([formatPropertyForInsert(propertyData)])
-          .select()
-          .single();
-          
-        if (error) throw error;
+      const { data, error } = await admin
+        .from('properties')
+        .insert([formatPropertyForInsert(propertyData)])
+        .select()
+        .single();
+
+      if (error) throw error;
     }
     revalidatePath("/admin/properties");
     return { message: `Property ${id ? 'updated' : 'created'} successfully!`, errors: {} };
   } catch (e) {
-      console.error('Error saving property:', e);
-      return { message: `Failed to ${id ? 'update' : 'create'} property.`, errors: {} };
+    console.error('Error saving property:', e);
+    return { message: `Failed to ${id ? 'update' : 'create'} property.`, errors: {} };
   }
 }
 
 export async function deleteProperty(id: string) {
   const admin = supabaseAdmin();
   try {
-      const { error } = await admin
-        .from('properties')
-        .delete()
-        .eq('id', id);
+    const { error } = await admin
+      .from('properties')
+      .delete()
+      .eq('id', id);
 
-      if (error) throw error;
-      
-      revalidatePath('/admin/properties');
-      return { message: "Property deleted successfully." };
+    if (error) throw error;
+
+    revalidatePath('/admin/properties');
+    return { message: "Property deleted successfully." };
   } catch (error) {
-      console.error('Error deleting property:', error);
-      return { message: "Failed to delete property." };
+    console.error('Error deleting property:', error);
+    return { message: "Failed to delete property." };
   }
 }
 
@@ -190,6 +191,33 @@ export async function submitInquiry(prevState: any, formData: FormData) {
     if (error) throw error;
 
     revalidatePath('/properties/[id]');
+
+    // Send email notification
+    const settings = await getSmtpSettings();
+    if (settings) {
+      await sendEmail({
+        to: settings.from_email,
+        subject: `New Inquiry for ${validatedFields.data.propertyId ? 'Property' : 'General'}`,
+        text: `
+New Inquiry
+
+Property ID: ${validatedFields.data.propertyId || 'N/A'}
+Name: ${validatedFields.data.name}
+Email: ${validatedFields.data.email}
+Phone: ${validatedFields.data.phone}
+Message: ${validatedFields.data.message || 'N/A'}
+            `,
+        html: `
+<h1>New Inquiry</h1>
+<p><strong>Property ID:</strong> ${validatedFields.data.propertyId || 'N/A'}</p>
+<p><strong>Name:</strong> ${validatedFields.data.name}</p>
+<p><strong>Email:</strong> ${validatedFields.data.email}</p>
+<p><strong>Phone:</strong> ${validatedFields.data.phone}</p>
+<p><strong>Message:</strong> ${validatedFields.data.message || 'N/A'}</p>
+            `
+      });
+    }
+
     return { message: "Inquiry submitted successfully!", errors: {} };
   } catch (e) {
     console.error('Error submitting inquiry:', e);
@@ -230,6 +258,31 @@ export async function submitValuation(prevState: any, formData: FormData) {
     if (error) throw error;
 
     revalidatePath('/properties/[id]');
+
+    // Send email notification
+    const settings = await getSmtpSettings();
+    if (settings) {
+      await sendEmail({
+        to: settings.from_email,
+        subject: 'New Valuation Request',
+        text: `
+New Valuation Request
+
+Name: ${validatedFields.data.name}
+Email: ${validatedFields.data.email}
+Phone: ${validatedFields.data.phone}
+Message: ${validatedFields.data.message}
+            `,
+        html: `
+<h1>New Valuation Request</h1>
+<p><strong>Name:</strong> ${validatedFields.data.name}</p>
+<p><strong>Email:</strong> ${validatedFields.data.email}</p>
+<p><strong>Phone:</strong> ${validatedFields.data.phone}</p>
+<p><strong>Message:</strong> ${validatedFields.data.message}</p>
+            `
+      });
+    }
+
     return { message: "Valuation request submitted successfully!", errors: {} };
   } catch (e) {
     console.error('Error submitting valuation:', e);

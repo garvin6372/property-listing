@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 import { useTheme } from "@/contexts/theme-context";
 import { useFilter } from "@/contexts/filter-context";
 import { Filter } from "lucide-react";
+import { BookCallModal } from "@/components/book-call-modal";
 
 const navLinks = [
     { href: "/", label: "Properties", icon: Briefcase },
@@ -109,14 +110,7 @@ export default function SiteHeader() {
                         )}
                     </Button>
 
-                    {/* <div className="hidden md:block">
-                        <Button asChild>
-                            <Link href="/admin/login">
-                                <UserCog className="h-4 w-4 mr-2" />
-                                Admin Login
-                            </Link>
-                        </Button>
-                    </div> */}
+                    <BookCallModal />
 
                 </div>
             </div>

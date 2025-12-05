@@ -7,11 +7,12 @@
 import React from 'react';
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { ValuationModal } from "@/components/valuation-modal";
 
 const Hero: React.FC = () => {
 
     return (
-        <section className="relative w-full h-screen min-h-[800px] overflow-hidden bg-gray-200">
+        <section className="relative w-full h-screen min-h-[600px] md:min-h-[800px] overflow-hidden bg-gray-200">
 
             {/* Background Image - Architecture */}
             <div className="absolute inset-0 w-full h-full">
@@ -29,14 +30,11 @@ const Hero: React.FC = () => {
             {/* Content */}
             <div className="relative z-10 h-full flex flex-col justify-center items-start text-left md:items-center md:text-center px-6">
                 <div className="animate-fade-in-up w-full md:w-auto">
-                    <span className="block text-xs md:text-sm font-medium uppercase tracking-[0.2em] text-white/90 mb-6 backdrop-blur-sm bg-white/10 px-4 py-2 rounded-full mx-0 md:mx-auto w-fit">
-                        Curated Living Spaces
-                    </span>
-                    <h1 className="text-6xl md:text-8xl lg:text-9xl font-serif font-normal text-white tracking-tight mb-8 drop-shadow-sm">
-                        Discover Your Dream Home.
+                    <h1 className="text-4xl md:text-6xl lg:text-8xl xl:text-9xl font-serif font-normal text-white tracking-tight mb-6 md:mb-8 drop-shadow-sm">
+                        London & Dubai Property Experts
                     </h1>
-                    <p className="max-w-lg mx-0 md:mx-auto text-lg md:text-xl text-white/90 font-light leading-relaxed mb-12 text-shadow-sm">
-                        Your Trusted Real Estate Partner
+                    <p className="max-w-lg mx-0 md:mx-auto text-base md:text-xl text-white/90 font-light leading-relaxed mb-8 md:mb-12 text-shadow-sm">
+                        Helping buyers & investors worldwide.
                     </p>
 
                     <Link
@@ -46,9 +44,13 @@ const Hero: React.FC = () => {
                         <span className="relative z-10 group-hover:text-[#2C2A26]">Explore Listings</span>
                     </Link>
                 </div>
-                <Button className="rounded-full data-[state=active]:bg-white data-[state=active]:shadow-sm transition-all duration-300">
-                    <Link href="/valuation">Get a Free Valuation</Link>
-                </Button>
+                <div className="mt-8">
+                    <ValuationModal>
+                        <Button className="rounded-full bg-white text-[#2C2A26] hover:bg-gray-100 transition-all duration-300 px-8 py-6 text-lg">
+                            Get a Free Valuation
+                        </Button>
+                    </ValuationModal>
+                </div>
             </div>
 
             {/* Scroll Indicator */}

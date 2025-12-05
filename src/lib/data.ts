@@ -1,4 +1,4 @@
-import type { Property, Inquiry, Valuation, Region, PropertyType, ListingStatus, DubaiStatus } from './types';
+import type { Property, Inquiry, Valuation, Consultation, Region, PropertyType, ListingStatus, DubaiStatus } from './types';
 import { PlaceHolderImages } from './placeholder-images';
 import { supabaseAdmin } from '@/lib/supabase/admin';
 import { supabaseClient } from '@/lib/supabase/client';
@@ -304,7 +304,35 @@ export async function getValuations() {
     email: valuation.email,
     phone: valuation.phone,
     message: valuation.message,
+    address: valuation.address,
+    type: valuation.type,
+    expectedValue: valuation.expected_value,
     submittedAt: new Date(valuation.created_at),
+  }));
+}
+
+export async function getConsultations(): Promise<Consultation[]> {
+  const admin = supabaseAdmin();
+  await delay(100);
+
+  const { data, error } = await admin
+    .from('consultations')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error('Error fetching consultations:', error);
+    throw new Error('Failed to fetch consultations');
+  }
+
+  return data.map(consultation => ({
+    id: consultation.id,
+    name: consultation.name,
+    email: consultation.email,
+    phone: consultation.phone,
+    budget: consultation.budget,
+    message: consultation.message,
+    submittedAt: new Date(consultation.created_at),
   }));
 }
 
@@ -404,8 +432,8 @@ export async function deleteListingStatus(name: string) {
 export const propertyTypes: PropertyType[] = ["Apartment", "Villa", "Townhouse", "Office", "Penthouse"];
 export const regions: Region[] = ["Dubai", "London"];
 export const listingStatuses: ListingStatus[] = ["Buy", "Rent"];
-export const dubaiStatuses: DubaiStatus[] = ["Ready", "Off-plan"];
-export const allStatuses: (ListingStatus | DubaiStatus)[] = ["Buy", "Rent", "Ready", "Off-plan"];
+export const dubaiStatuses: DubaiStatus[] = ["Ready", "Off-plan", "Buy-to-let", "Family homes", "Luxury villas"];
+export const allStatuses: (ListingStatus | DubaiStatus)[] = ["Buy", "Rent", "Ready", "Off-plan", "Buy-to-let"];
 
 // We'll fetch locations dynamically from the database
 export async function getLocations() {
