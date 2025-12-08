@@ -54,9 +54,10 @@ export function BookCallModal() {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button className="hidden md:flex gap-2 bg-[#2C2A26] text-white hover:bg-[#2C2A26]/90">
+                <Button className="flex gap-2">
                     <PhoneCall className="h-4 w-4" />
-                    Book a Free Consultation
+                    <span className="hidden sm:inline">Book a Free Consultation</span>
+                    <span className="sm:hidden">Book Call</span>
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
@@ -88,7 +89,7 @@ export function BookCallModal() {
                         <Textarea id="message" name="message" placeholder="I'm interested in..." />
                     </div>
                     <DialogFooter>
-                        <Button type="submit" className="w-full bg-[#2C2A26] text-white hover:bg-[#2C2A26]/90" disabled={isSubmitting}>
+                        <Button type="submit" className="w-full " disabled={isSubmitting}>
                             {isSubmitting ? "Sending..." : "Submit Request"}
                         </Button>
                     </DialogFooter>

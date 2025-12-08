@@ -17,6 +17,7 @@ const propertySchema = z.object({
   type: z.string().min(1, "Property type is required"),
   status: z.string().min(1, "Status is required"),
   dubaiStatus: z.string().optional(), // Changed to string to accommodate 'none' value
+  company: z.string().optional(),
   imageIds: z.string().min(1, "At least one image is required"),
   bedrooms: z.number().min(0),
   bathrooms: z.number().min(0),
@@ -49,6 +50,7 @@ function formatPropertyForInsert(property: any) {
     type: property.type,
     status: property.status,
     dubai_status: property.dubaiStatus && property.dubaiStatus !== 'none' ? property.dubaiStatus : null,
+    company: property.company || null,
     image_ids: Array.isArray(property.imageIds) ? property.imageIds : (property.imageIds ? property.imageIds.split(',') : []),
     bedrooms: property.bedrooms,
     bathrooms: property.bathrooms,
@@ -67,6 +69,7 @@ function formatPropertyForUpdate(property: any) {
   if (property.type !== undefined) formatted.type = property.type;
   if (property.status !== undefined) formatted.status = property.status;
   if (property.dubaiStatus !== undefined) formatted.dubai_status = property.dubaiStatus && property.dubaiStatus !== 'none' ? property.dubaiStatus : null;
+  if (property.company !== undefined) formatted.company = property.company || null;
   if (property.imageIds !== undefined) formatted.image_ids = Array.isArray(property.imageIds) ? property.imageIds : (property.imageIds ? property.imageIds.split(',') : []);
   if (property.bedrooms !== undefined) formatted.bedrooms = property.bedrooms;
   if (property.bathrooms !== undefined) formatted.bathrooms = property.bathrooms;
@@ -89,6 +92,7 @@ export async function saveProperty(prevState: any, formData: FormData) {
     type: formData.get('type'),
     status: formData.get('status'),
     dubaiStatus: formData.get('dubaiStatus') ?? undefined, // Use undefined instead of null for optional fields
+    company: formData.get('company') as string ?? undefined,
     imageIds: formData.get('imageIds') as string,
     bedrooms: Number(formData.get('bedrooms')),
     bathrooms: Number(formData.get('bathrooms')),

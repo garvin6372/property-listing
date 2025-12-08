@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -67,7 +66,7 @@ export function HeroSearch() {
                     className="h-14 pl-12 rounded-full border-gray-200 bg-gray-50 focus:bg-white transition-all duration-300 text-base"
                   />
                 </div>
-                <Button type="submit" size="lg" className="h-14 px-8 rounded-full bg-[#2C2A26] hover:bg-[#433E38] text-white transition-colors duration-300">
+                <Button type="submit" size="lg" className="h-14 px-8 rounded-full bg-primary hover:bg-primary/90 text-white transition-colors duration-300">
                   Search
                 </Button>
               </form>
@@ -87,12 +86,24 @@ export function HeroSearch() {
                     className="h-14 pl-12 rounded-full border-gray-200 bg-gray-50 focus:bg-white transition-all duration-300 text-base"
                   />
                 </div>
-                <Button type="submit" size="lg" className="h-14 px-8 rounded-full bg-[#2C2A26] hover:bg-[#433E38] text-white transition-colors duration-300">
+                <Button type="submit" size="lg" className="h-14 px-8 rounded-full bg-primary hover:bg-primary/90 text-white transition-colors duration-300">
                   Search
                 </Button>
               </form>
             </TabsContent>
           </Tabs>
+
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 text-sm">
+            <span className="text-muted-foreground">Or explore by region:</span>
+            <div className="flex gap-2">
+              <Link href="/search/london" className="px-4 py-2 rounded-full bg-gray-100 hover:bg-gray-200 text-[#2C2A26] transition-colors">
+                London
+              </Link>
+              <Link href="/search/dubai" className="px-4 py-2 rounded-full bg-gray-100 hover:bg-gray-200 text-[#2C2A26] transition-colors">
+                Dubai
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </div>

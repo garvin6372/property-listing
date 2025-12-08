@@ -23,8 +23,16 @@ function FiltersContent() {
   const searchParams = useSearchParams();
   const { setFilterVisible } = useFilter();
 
+  // Determine default region based on the current path
+  let defaultRegion = 'Dubai'; // Default to Dubai
+  if (pathname.includes('/search/london')) {
+    defaultRegion = 'London';
+  } else if (pathname.includes('/search/dubai')) {
+    defaultRegion = 'Dubai';
+  }
+
   const [currentFilters, setCurrentFilters] = useState({
-    region: searchParams.get('region') || 'Dubai',
+    region: searchParams.get('region') || defaultRegion,
     type: searchParams.get('type') || 'all',
     status: searchParams.get('status') || 'all',
     location: searchParams.get('location') || 'all',
@@ -79,7 +87,7 @@ function FiltersContent() {
 
   const applyFilters = () => {
     const params = new URLSearchParams();
-    if (currentFilters.region && currentFilters.region !== 'all') params.set('region', currentFilters.region);
+    // For regional pages, we don't include the region in the URL since it's implicit
     if (currentFilters.type && currentFilters.type !== 'all') params.set('type', currentFilters.type);
     if (currentFilters.status && currentFilters.status !== 'all') params.set('status', currentFilters.status);
     if (currentFilters.location && currentFilters.location !== 'all') params.set('location', currentFilters.location);
@@ -89,16 +97,30 @@ function FiltersContent() {
     if (priceRange[0] > 0) params.set('minPrice', priceRange[0].toString());
     if (priceRange[1] < 50000000) params.set('maxPrice', priceRange[1].toString());
 
-    router.push(`${pathname}?${params.toString()}`);
+    // For the regional search pages, we don't need to include the region in the URL
+    // as it's already implied by the path
+    if (pathname.includes('/search/london') || pathname.includes('/search/dubai')) {
+      router.push(`${pathname}?${params.toString()}`);
+    } else {
+      // For main search page, include region parameter
+      if (currentFilters.region && currentFilters.region !== 'all') params.set('region', currentFilters.region);
+      router.push(`/search?${params.toString()}`);
+    }
     setFilterVisible(false);
   }
 
   const clearFilters = () => {
     setCurrentFilters({
-      region: 'Dubai', type: 'all', status: 'all', location: 'all', bedrooms: 'any', bathrooms: 'any'
+      region: defaultRegion, type: 'all', status: 'all', location: 'all', bedrooms: 'any', bathrooms: 'any'
     });
     setPriceRange([0, 50000000]);
-    router.push(pathname);
+
+    // For the regional search pages, clear filters but stay on the same page
+    if (pathname.includes('/search/london') || pathname.includes('/search/dubai')) {
+      router.push(pathname);
+    } else {
+      router.push('/search');
+    }
   };
 
   const isFilterActive = searchParams.toString().length > 0;
@@ -118,19 +140,22 @@ function FiltersContent() {
         )}
       </div>
       <div className="space-y-6 pt-6">
-        <div className="space-y-3">
-          <Label className="text-xs uppercase tracking-widest text-muted-foreground font-medium">Region</Label>
-          <ToggleGroup
-            type="single"
-            defaultValue="Dubai"
-            className="grid grid-cols-2 gap-2"
-            value={currentFilters.region}
-            onValueChange={(value) => { if (value) handleFilterChange('region', value) }}
-          >
-            <ToggleGroupItem value="Dubai" className="rounded-full data-[state=on]:bg-[#2C2A26] data-[state=on]:text-white border border-input hover:bg-accent hover:text-accent-foreground transition-all duration-300">Dubai</ToggleGroupItem>
-            <ToggleGroupItem value="London" className="rounded-full data-[state=on]:bg-[#2C2A26] data-[state=on]:text-white border border-input hover:bg-accent hover:text-accent-foreground transition-all duration-300">London</ToggleGroupItem>
-          </ToggleGroup>
-        </div>
+        {/* Only show region selector on the main search page, not on regional pages */}
+        {!pathname.includes('/search/london') && !pathname.includes('/search/dubai') && (
+          <div className="space-y-3">
+            <Label className="text-xs uppercase tracking-widest text-muted-foreground font-medium">Region</Label>
+            <ToggleGroup
+              type="single"
+              defaultValue={defaultRegion}
+              className="grid grid-cols-2 gap-2"
+              value={currentFilters.region}
+              onValueChange={(value) => { if (value) handleFilterChange('region', value) }}
+            >
+              <ToggleGroupItem value="Dubai" className="rounded-full data-[state=on]:bg-primary data-[state=on]:text-white border border-input hover:bg-accent hover:text-accent-foreground transition-all duration-300">Dubai</ToggleGroupItem>
+              <ToggleGroupItem value="London" className="rounded-full data-[state=on]:bg-primary data-[state=on]:text-white border border-input hover:bg-accent hover:text-accent-foreground transition-all duration-300">London</ToggleGroupItem>
+            </ToggleGroup>
+          </div>
+        )}
 
         <div className="space-y-3">
           <Label htmlFor="type" className="text-xs uppercase tracking-widest text-muted-foreground font-medium">Property Type</Label>
@@ -205,7 +230,7 @@ function FiltersContent() {
           </div>
         </div>
 
-        <Button onClick={applyFilters} className="w-full rounded-full bg-[#2C2A26] hover:bg-[#433E38] text-white h-12 text-base font-medium transition-all duration-300 dark:bg-white dark:text-[#2C2A26] dark:hover:bg-gray-200 mt-4">
+        <Button onClick={applyFilters} className="w-full rounded-full bg-primary hover:bg-[#433E38] text-white h-12 text-base font-medium transition-all duration-300 dark:bg-white dark:text-[#2C2A26] dark:hover:bg-gray-200 mt-4">
           <Search className="w-4 h-4 mr-2" />
           Search Properties
         </Button>

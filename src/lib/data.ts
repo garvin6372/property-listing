@@ -449,3 +449,22 @@ export async function getLocations() {
 
   return [...new Set(data.map((p: any) => p.location))];
 }
+
+// Add function to get unique company values for Dubai properties
+export async function getCompanies() {
+  const client = supabaseClient();
+  const { data, error } = await client
+    .from('properties')
+    .select('company')
+    .not('company', 'is', null)
+    .eq('region', 'Dubai');
+
+  if (error) {
+    console.error('Error fetching companies:', error);
+    return [];
+  }
+
+  // Extract company names and remove duplicates
+  const companies = data.map((p: any) => p.company);
+  return [...new Set(companies)].filter(Boolean); // Remove null/undefined values
+}

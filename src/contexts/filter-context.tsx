@@ -11,7 +11,7 @@ interface FilterContextType {
 const FilterContext = createContext<FilterContextType | undefined>(undefined);
 
 export function FilterProvider({ children }: { children: ReactNode }) {
-    const [isFilterVisible, setIsFilterVisible] = useState(true);
+    const [isFilterVisible, setIsFilterVisible] = useState(false);
 
     const toggleFilter = () => setIsFilterVisible((prev) => !prev);
     const setFilterVisible = (visible: boolean) => setIsFilterVisible(visible);

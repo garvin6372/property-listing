@@ -15,6 +15,7 @@ export type Property = {
   type: PropertyType;
   status: ListingStatus;
   dubaiStatus?: DubaiStatus;
+  company?: string;
   imageIds: string[];
   bedrooms: number;
   bathrooms: number;

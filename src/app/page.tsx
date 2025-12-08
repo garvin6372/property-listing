@@ -21,85 +21,45 @@ import { SeoContent } from "@/components/seo-content";
 export default function Home() {
   const [featuredProperties, setFeaturedProperties] = React.useState<Awaited<ReturnType<typeof getClientFeaturedProperties>>>([
     {
-      id: '1',
-      title: '1-Bed Apartment in Business Bay',
-      price: 1200000,
+      id: 'aspirz-1',
+      title: 'Modern Studio in Aspirz',
+      price: 850000,
       currency: 'AED',
       status: 'Off-Plan',
-      location: 'Business Bay, Dubai',
-      bedrooms: 1,
-      bathrooms: 1,
-      area: 850,
-      images: [{ imageUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=2070&auto=format&fit=crop', id: 'img1', description: 'Main Image', imageHint: 'interior' }],
+      location: 'Dubai Sports City, Dubai',
+      bedrooms: 3,
+      bathrooms: 2,
+      area: 450,
+      images: [{ imageUrl: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=2070&auto=format&fit=crop', id: 'img-aspirz-1', description: 'Modern Studio Interior', imageHint: 'interior' }],
+      type: 'Studio'
+    },
+    {
+      id: 'breez-1',
+      title: 'Luxury 2-Bed with Sea View in Breez',
+      price: 1800000,
+      currency: 'AED',
+      status: 'Off-Plan',
+      location: 'Dubai Maritime City, Dubai',
+      bedrooms: 2,
+      bathrooms: 2,
+      area: 1200,
+      images: [{ imageUrl: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop', id: 'img-breez-1', description: 'Breez Tower Exterior', imageHint: 'exterior' }],
       type: 'Apartment'
     },
     {
-      id: '2',
-      title: 'Luxury Villa in Palm Jumeirah',
-      price: 15000000,
-      currency: 'AED',
-      status: 'Ready',
-      location: 'Palm Jumeirah, Dubai',
-      bedrooms: 5,
-      bathrooms: 6,
-      area: 5000,
-      images: [{ imageUrl: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop', id: 'img2', description: 'Main Image', imageHint: 'exterior' }],
-      type: 'Villa'
-    },
-    {
-      id: '3',
-      title: 'Modern Townhouse in London',
-      price: 850000,
-      currency: 'GBP',
-      status: 'New Build',
-      location: 'Greenwich, London',
-      bedrooms: 3,
-      bathrooms: 2,
-      area: 1200,
-      images: [{ imageUrl: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop', id: 'img3', description: 'Main Image', imageHint: 'exterior' }],
-      type: 'Townhouse'
-    },
-    {
-      id: '4',
-      title: 'Penthouse with Marina View',
-      price: 3500000,
-      currency: 'AED',
-      status: 'Ready',
-      location: 'Dubai Marina, Dubai',
-      bedrooms: 3,
-      bathrooms: 3,
-      area: 2100,
-      images: [{ imageUrl: 'https://images.unsplash.com/photo-1515263487990-61b07816b324?q=80&w=2070&auto=format&fit=crop', id: 'img4', description: 'Main Image', imageHint: 'interior' }],
-      type: 'Penthouse'
-    },
-    {
-      id: '5',
-      title: 'Victorian Family Home',
-      price: 1200000,
-      currency: 'GBP',
-      status: 'Resale',
-      location: 'Richmond, London',
-      bedrooms: 4,
-      bathrooms: 3,
-      area: 1800,
-      images: [{ imageUrl: 'https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?q=80&w=2070&auto=format&fit=crop', id: 'img5', description: 'Main Image', imageHint: 'exterior' }],
-      type: 'House'
-    },
-    {
-      id: '6',
-      title: 'Studio in Downtown',
-      price: 950000,
+      id: 'aspirz-2',
+      title: 'Premium 2-Bed Flex Apartment in Aspirz',
+      price: 1400000,
       currency: 'AED',
       status: 'Off-Plan',
-      location: 'Downtown Dubai',
-      bedrooms: 0,
-      bathrooms: 1,
-      area: 500,
-      images: [{ imageUrl: 'https://images.unsplash.com/photo-1591348122449-02525d70379b?q=80&w=2070&auto=format&fit=crop', id: 'img6', description: 'Main Image', imageHint: 'interior' }],
-      type: 'Studio'
+      location: 'Dubai Sports City, Dubai',
+      bedrooms: 2,
+      bathrooms: 2,
+      area: 1100,
+      images: [{ imageUrl: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=2070&auto=format&fit=crop', id: 'img-aspirz-2', description: 'Spacious Living Room', imageHint: 'interior' }],
+      type: 'Apartment'
     }
   ] as any);
-  const [viewState, setViewState] = useState<ViewState>(ViewState.LOADING);
 
   React.useEffect(() => {
     // Get featured properties (first 6)
@@ -137,17 +97,10 @@ export default function Home() {
     }
   ];
 
-  const handleLoadingComplete = () => {
-    setViewState(ViewState.LANDING);
-  };
-
 
   return (
     <>
-      {viewState === ViewState.LOADING && (
-        <LoadingScreen onComplete={handleLoadingComplete} />
-      )}
-      <div className={`bg-background min-h-screen flex flex-col ${viewState === ViewState.LANDING ? 'opacity-100' : 'opacity-0'}`}>
+      <div className={`bg-background min-h-screen flex flex-col`}>
         <Hero />
         <CitySections />
         {/* <HeroSearch /> */}
@@ -164,7 +117,7 @@ export default function Home() {
                 Discover our handpicked selection of premium properties in prime locations.
               </p>
             </div>
-            <Button asChild variant="outline" className="rounded-full px-8 h-12 border-[#2C2A26] text-[#2C2A26] hover:bg-[#2C2A26] hover:text-white dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-[#2C2A26] transition-all duration-300">
+            <Button asChild variant="outline" className="rounded-full px-8 h-12 border-primary text-primary hover:bg-primary hover:text-white dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-primary transition-all duration-300">
               <Link href="/search">View All Properties</Link>
             </Button>
           </div>
@@ -186,7 +139,7 @@ export default function Home() {
 
         <WhySkyvera />
         <HowItWorks />
-        <SeoContent />
+        <Testimonials />
 
         {/* When you need experts Section */}
         <div className="bg-[#2C2A26] text-white py-12 md:py-24">
@@ -223,7 +176,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <Testimonials />
+        <SeoContent />
       </div>
     </>
   );

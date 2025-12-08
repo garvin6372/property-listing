@@ -14,6 +14,7 @@ function formatProperty(property: any): Property {
     type: property.type,
     status: property.status,
     dubaiStatus: property.dubai_status || undefined,
+    company: property.company || undefined,
     imageIds: property.image_ids || [],
     bedrooms: property.bedrooms,
     bathrooms: property.bathrooms,
@@ -32,6 +33,7 @@ function formatPropertyForInsert(property: Omit<Property, 'id'>) {
     type: property.type,
     status: property.status,
     dubai_status: property.dubaiStatus || null,
+    company: property.company || null,
     image_ids: property.imageIds,
     bedrooms: property.bedrooms,
     bathrooms: property.bathrooms,
@@ -50,6 +52,7 @@ function formatPropertyForUpdate(property: Partial<Property>) {
   if (property.type !== undefined) formatted.type = property.type
   if (property.status !== undefined) formatted.status = property.status
   if (property.dubaiStatus !== undefined) formatted.dubai_status = property.dubaiStatus || null
+  if (property.company !== undefined) formatted.company = property.company || null
   if (property.imageIds !== undefined) formatted.image_ids = property.imageIds
   if (property.bedrooms !== undefined) formatted.bedrooms = property.bedrooms
   if (property.bathrooms !== undefined) formatted.bathrooms = property.bathrooms

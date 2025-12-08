@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import { useSupabaseAuth } from "@/contexts/supabase-auth-context";
 import { AdminProviders } from "../providers";
@@ -21,6 +21,7 @@ export default function LoginPage() {
 
 function LoginContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { login, isAuthenticated } = useSupabaseAuth();
   const logo = PlaceHolderImages.find(img => img.id === 'skyvera-logo-blue');
   const [isLoading, setIsLoading] = useState(false);
@@ -29,9 +30,10 @@ function LoginContent() {
   // Redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated) {
-      router.push('/admin/dashboard');
+      const next = searchParams.get('next');
+      router.push(next || '/admin/dashboard');
     }
-  }, [isAuthenticated, router]);
+  }, [isAuthenticated, router, searchParams]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

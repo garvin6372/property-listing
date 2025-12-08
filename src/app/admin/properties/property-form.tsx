@@ -34,6 +34,7 @@ interface FormState {
     type?: string[];
     status?: string[];
     dubaiStatus?: string[];
+    company?: string[];
     bedrooms?: string[];
     bathrooms?: string[];
     area?: string[];
@@ -355,6 +356,17 @@ export function PropertyForm({ property }: PropertyFormProps) {
                 </Select>
               </div>
             </div>
+            {selectedRegion === 'Dubai' && (
+              <div className="space-y-2">
+                <Label htmlFor="company">Company</Label>
+                <Input id="company" name="company" defaultValue={property?.company || ''} />
+                {(state.errors?.company || validationErrors.company) && (
+                  <p className="text-sm text-destructive">
+                    {state.errors?.company?.[0] || validationErrors.company?.[0]}
+                  </p>
+                )}
+              </div>
+            )}
             <div className="grid grid-cols-3 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="bedrooms">Bedrooms</Label>

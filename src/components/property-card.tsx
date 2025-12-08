@@ -32,7 +32,7 @@ export function PropertyCard({ property }: PropertyCardProps) {
         </Link>
         <div className="absolute bottom-4 left-4">
           <Badge
-            className={`capitalize px-3 py-1 text-xs font-medium tracking-wide rounded-full ${displayStatus === 'Buy' || displayStatus === 'Rent' ? 'bg-[#2C2A26] text-white' : 'bg-green-600 text-white'}`}>
+            className={`capitalize px-3 py-1 text-xs font-medium tracking-wide rounded-full ${displayStatus === 'Buy' || displayStatus === 'Rent' ? 'bg-primary text-white' : 'bg-green-600 text-white'}`}>
             {displayStatus}
           </Badge>
         </div>
@@ -71,7 +71,7 @@ export function PropertyCard({ property }: PropertyCardProps) {
         </div>
 
         <div className="flex justify-between items-center pt-2">
-          <Button variant="default" className="w-full rounded-full bg-[#2C2A26] hover:bg-[#433E38] text-white transition-all duration-300 dark:bg-white dark:text-[#2C2A26] dark:hover:bg-gray-200" asChild>
+          <Button variant="default" className="w-full rounded-full bg-primary hover:bg-[#433E38] text-white transition-all duration-300 dark:bg-white dark:text-[#2C2A26] dark:hover:bg-gray-200" asChild>
             <Link href={`/properties/${property.id}#inquire`}>
               View Details
             </Link>

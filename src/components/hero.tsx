@@ -30,7 +30,7 @@ const Hero: React.FC = () => {
             {/* Content */}
             <div className="relative z-10 h-full flex flex-col justify-center items-start text-left md:items-center md:text-center px-6">
                 <div className="animate-fade-in-up w-full md:w-auto">
-                    <h1 className="text-4xl md:text-6xl lg:text-8xl xl:text-9xl font-serif font-normal text-white tracking-tight mb-6 md:mb-8 drop-shadow-sm">
+                    <h1 className="text-4xl md:text-4xl lg:text-6xl xl:text-8xl font-serif font-normal text-white tracking-tight mb-6 md:mb-8 drop-shadow-sm">
                         London & Dubai Property Experts
                     </h1>
                     <p className="max-w-lg mx-0 md:mx-auto text-base md:text-xl text-white/90 font-light leading-relaxed mb-8 md:mb-12 text-shadow-sm">

@@ -103,7 +103,7 @@ export function ValuationModal({ children }: { children: React.ReactNode }) {
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button type="submit" className="w-full bg-[#2C2A26] text-white hover:bg-[#2C2A26]/90" disabled={isSubmitting}>
+                        <Button type="submit" className="w-full" disabled={isSubmitting}>
                             {isSubmitting ? "Sending..." : "Get Free Valuation"}
                         </Button>
                     </DialogFooter>

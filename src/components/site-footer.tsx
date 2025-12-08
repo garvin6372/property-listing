@@ -1,16 +1,40 @@
 import Link from "next/link";
-import { Facebook, Instagram, Linkedin, MessageCircle } from "lucide-react";
+import { Instagram, Linkedin, Mail, MapPin, Phone, MessageCircle } from "lucide-react";
+import { useTheme } from "@/contexts/theme-context";
+import Image from "next/image";
 
-export default function SiteFooter() {
+export function SiteFooter() {
+  const { theme } = useTheme();
+
   return (
-    <footer className="bg-background border-t">
-      <div className="container mx-auto px-4 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-          {/* Company Info */}
-          <div>
-            <h3 className="font-serif text-2xl font-bold mb-6">Skyvera</h3>
-            <p className="text-muted-foreground mb-6">
-              Your trusted partner for premium property investments in London and Dubai.
+    <footer className="border-t border-border/50 bg-background">
+      <div className="container py-16 px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+          {/* Brand */}
+          <div className="space-y-6">
+            <div className="flex items-center space-x-2">
+              {theme === "dark" ? (
+                <Image
+                  src="/dark_theme_logo.png"
+                  alt="Skyvera Logo"
+                  width={150}
+                  height={40}
+                  priority
+                  className="h-10 w-auto"
+                />
+              ) : (
+                <Image
+                  src="/light_theme_logo.png"
+                  alt="Skyvera Logo"
+                  width={150}
+                  height={40}
+                  priority
+                  className="h-10 w-auto"
+                />
+              )}
+            </div>
+            <p className="text-muted-foreground">
+              Premium real estate services in Dubai and London.
             </p>
             <div className="flex space-x-4">
               <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">
@@ -33,8 +57,8 @@ export default function SiteFooter() {
             <h4 className="font-medium text-lg mb-6">Quick Links</h4>
             <ul className="space-y-4 text-muted-foreground">
               <li><Link href="/search" className="hover:text-foreground transition-colors">Search Properties</Link></li>
-              <li><Link href="/search?city=London" className="hover:text-foreground transition-colors">London Properties</Link></li>
-              <li><Link href="/search?city=Dubai" className="hover:text-foreground transition-colors">Dubai Properties</Link></li>
+              <li><Link href="/search/london" className="hover:text-foreground transition-colors">London Properties</Link></li>
+              <li><Link href="/search/dubai" className="hover:text-foreground transition-colors">Dubai Properties</Link></li>
               <li><Link href="/valuation" className="hover:text-foreground transition-colors">Property Valuation</Link></li>
             </ul>
           </div>
@@ -53,20 +77,15 @@ export default function SiteFooter() {
           <div>
             <h4 className="font-medium text-lg mb-6">Dubai Office</h4>
             <address className="not-italic text-muted-foreground space-y-4">
-              <p>Business Bay, Tower A<br />Dubai, UAE</p>
-              <p><a href="tel:+971500000000" className="hover:text-foreground transition-colors">020 8137 4448</a></p>
+              <p>Dubai Marina<br />Dubai, UAE</p>
+              <p><a href="tel:+971501234567" className="hover:text-foreground transition-colors">+971 50 123 4567</a></p>
+              <p><a href="mailto:dubai@skyvera.com" className="hover:text-foreground transition-colors">dubai@skyvera.com</a></p>
             </address>
           </div>
         </div>
 
-        <div className="pt-8 border-t flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-muted-foreground">
-            &copy; {new Date().getFullYear()} Skyvera. All rights reserved.
-          </p>
-          <div className="flex gap-6 text-sm text-muted-foreground">
-            <Link href="#" className="hover:text-foreground transition-colors">Privacy Policy</Link>
-            <Link href="#" className="hover:text-foreground transition-colors">Terms of Service</Link>
-          </div>
+        <div className="border-t border-border/50 mt-12 pt-8 text-center text-sm text-muted-foreground">
+          <p>© {new Date().getFullYear()} Skyvera. All rights reserved.</p>
         </div>
       </div>
     </footer>

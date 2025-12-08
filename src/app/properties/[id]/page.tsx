@@ -50,7 +50,7 @@ export default async function PropertyPage({ params }: { params: { id: string } 
         <div className="flex flex-col md:flex-row justify-between items-start gap-6">
           <div className="space-y-4">
             <div className="flex flex-wrap items-center gap-3">
-              <Badge className={`capitalize px-4 py-1.5 text-sm font-medium tracking-wide rounded-full ${property.status === 'Buy' || property.status === 'Rent' ? 'bg-[#2C2A26] text-white dark:bg-white dark:text-[#2C2A26]' : 'bg-green-600 text-white'}`}>
+              <Badge className={`capitalize px-4 py-1.5 text-sm font-medium tracking-wide rounded-full ${property.status === 'Buy' || property.status === 'Rent' ? 'bg-primary text-white dark:bg-white dark:text-primary' : 'bg-green-600 text-white'}`}>
                 {property.status}
               </Badge>
               {property.dubaiStatus && (property.dubaiStatus as string) !== 'none' && (

@@ -14,23 +14,27 @@ import { PropertyCardList } from '@/components/property-card-list';
 import { Suspense } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
 import { useFilter } from "@/contexts/filter-context";
 import { Filter } from "lucide-react";
+import { getCompanies } from '@/lib/data';
 
-function SearchContent() {
+function DubaiSearchContent() {
     const [allProperties, setAllProperties] = React.useState<Awaited<ReturnType<typeof getClientProperties>>>([]);
+    const [companies, setCompanies] = React.useState<string[]>([]);
     const [view, setView] = useState('grid');
     const [sortBy, setSortBy] = useState('newest');
     const router = useRouter();
     const [searchLocation, setSearchLocation] = useState('');
 
-    const { toggleFilter, isFilterVisible } = useFilter();
+    const { toggleFilter } = useFilter();
 
     const searchParams = useSearchParams();
 
+    // Set region to Dubai by default
+    const region = 'Dubai';
     const type = searchParams.getAll('type');
     const status = searchParams.get('status') || 'all'; // Default to 'all'
+    const company = searchParams.get('company') || 'all'; // Default to 'all'
     const minPrice = searchParams.get('minPrice') ? Number(searchParams.get('minPrice')) : undefined;
     const maxPrice = searchParams.get('maxPrice') ? Number(searchParams.get('maxPrice')) : undefined;
     const location = searchParams.get('location') as string | undefined;
@@ -41,6 +45,9 @@ function SearchContent() {
 
     React.useEffect(() => {
         getClientProperties(location && location !== 'all' ? location : undefined).then(setAllProperties);
+        
+        // Fetch companies
+        getCompanies().then(setCompanies);
     }, [location]);
 
     const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
@@ -52,7 +59,7 @@ function SearchContent() {
             params.delete('location');
         }
         params.delete('page'); // Reset to first page on new search
-        router.push(`/search?${params.toString()}`);
+        router.push(`/search/dubai?${params.toString()}`);
     };
 
     const handleStatusChange = (value: string) => {
@@ -63,23 +70,42 @@ function SearchContent() {
             params.set('status', value);
         }
         params.delete('page'); // Reset to first page
-        router.push(`/search?${params.toString()}`);
+        router.push(`/search/dubai?${params.toString()}`);
+    };
+
+    const handleCompanyChange = (value: string) => {
+        const params = new URLSearchParams(Array.from(searchParams.entries()));
+        if (value === 'all') {
+            params.delete('company');
+        } else {
+            params.set('company', value);
+        }
+        params.delete('page'); // Reset to first page
+        router.push(`/search/dubai?${params.toString()}`);
     };
 
     const filteredProperties = allProperties.filter(property => {
-        const typeMatch = !type || type.length === 0 || type.includes('all') || type.includes(property.type);
+        // Filter by Dubai region
+        const regionMatch = property.region === 'Dubai';
+        
+        // Filter by status (Buy/Rent) and Dubai-specific status
         const statusMatch = status === 'all' || 
                           status === property.status || 
                           (property.dubaiStatus && status === property.dubaiStatus);
+        
+        // Filter by company
+        const companyMatch = company === 'all' || property.company === company;
+        
+        const typeMatch = !type || type.length === 0 || type.includes('all') || type.includes(property.type);
         const minPriceMatch = !minPrice || property.price >= minPrice;
         const maxPriceMatch = !maxPrice || property.price <= maxPrice;
         const bedroomsMatch = bedrooms === undefined || String(bedrooms) === 'any' || bedrooms === property.bedrooms;
         const bathroomsMatch = bathrooms === undefined || String(bathrooms) === 'any' || bathrooms === property.bathrooms;
-        const locationMatch = !location || location === 'all' || 
-          (property.location && property.location.toLowerCase().includes(location.toLowerCase())) || 
-          (property.region && property.region.toLowerCase().includes(location.toLowerCase()));
+        const locationMatch = !location || location === 'all' ||
+            (property.location && property.location.toLowerCase().includes(location.toLowerCase())) ||
+            (property.region && property.region.toLowerCase().includes(location.toLowerCase()));
 
-        return typeMatch && statusMatch && minPriceMatch && maxPriceMatch && bedroomsMatch && bathroomsMatch && locationMatch;
+        return regionMatch && statusMatch && companyMatch && typeMatch && minPriceMatch && maxPriceMatch && bedroomsMatch && bathroomsMatch && locationMatch;
     }).sort((a, b) => {
         if (sortBy === 'price-asc') {
             return a.price - b.price;
@@ -99,7 +125,7 @@ function SearchContent() {
     const createPageURL = (pageNumber: number | string) => {
         const params = new URLSearchParams(Array.from(searchParams.entries()));
         params.set('page', pageNumber.toString());
-        return `/search?${params.toString()}`;
+        return `/search/dubai?${params.toString()}`;
     };
 
     return (
@@ -109,7 +135,7 @@ function SearchContent() {
                 <div className="container mx-auto px-4">
                     <form onSubmit={handleSearch} className="max-w-4xl mx-auto">
                         <h1 className="text-3xl md:text-4xl font-serif mb-8 text-center">
-                            Find your perfect property
+                            Dubai Properties
                         </h1>
                         <div className="flex flex-col md:flex-row gap-4">
                             <div className="relative flex-1">
@@ -118,7 +144,7 @@ function SearchContent() {
                                     type="search"
                                     value={searchLocation}
                                     onChange={(e) => setSearchLocation(e.target.value)}
-                                    placeholder="Search by location (e.g. 'Downtown Dubai', 'Kensington')"
+                                    placeholder="Search by location (e.g. 'Downtown Dubai', 'Palm Jumeirah')"
                                     className="h-14 pl-12 rounded-full border-gray-200 bg-gray-50 focus:bg-white transition-all duration-300 text-base"
                                 />
                             </div>
@@ -132,18 +158,6 @@ function SearchContent() {
                             </div>
                         )}
                     </form>
-                    
-                    <div className="mt-8 text-center">
-                        <p className="text-muted-foreground mb-4">Or browse properties by region:</p>
-                        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                            <Link href="/search/dubai" className="px-6 py-3 rounded-full bg-[#2C2A26] text-white hover:bg-[#433E38] transition-colors">
-                                Dubai Properties
-                            </Link>
-                            <Link href="/search/london" className="px-6 py-3 rounded-full bg-[#2C2A26] text-white hover:bg-[#433E38] transition-colors">
-                                London Properties
-                            </Link>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -152,7 +166,7 @@ function SearchContent() {
                     <PropertyFilters />
                     <main className="lg:col-span-12">
                         <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-4">
-                            <h1 className="text-2xl font-serif font-medium tracking-tight text-[#2C2A26] dark:text-white">Properties <span className="text-muted-foreground font-light text-lg">({filteredProperties.length} properties found)</span></h1>
+                            <h1 className="text-2xl font-serif font-medium tracking-tight text-[#2C2A26] dark:text-white">Dubai Properties <span className="text-muted-foreground font-light text-lg">({filteredProperties.length} properties found)</span></h1>
                             <div className="flex items-center gap-2 w-full md:w-auto">
                                 <Button variant="ghost" size="sm" onClick={toggleFilter} className="hidden md:flex gap-2">
                                     <Filter className="h-4 w-4" />
@@ -166,10 +180,17 @@ function SearchContent() {
                                     <SelectContent>
                                         <SelectItem value="all">All Status</SelectItem>
                                         <SelectItem value="Buy">Buy</SelectItem>
-                                        <SelectItem value="Rent">Rent</SelectItem>
-                                        {/* Dubai-specific statuses */}
-                                        <SelectItem value="Ready">Ready</SelectItem>
-                                        <SelectItem value="Off-plan">Off-plan</SelectItem>
+                                        <SelectItem value="Let">Let</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                                {/* Company Filter Dropdown */}
+                                <Select value={company} onValueChange={handleCompanyChange}>
+                                    <SelectTrigger className="w-full md:w-[150px] bg-card border-border">
+                                        <SelectValue placeholder="Company" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="all">All Companies</SelectItem>
+                                        {companies.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
                                     </SelectContent>
                                 </Select>
                                 <Select defaultValue="newest" onValueChange={setSortBy}>
@@ -245,10 +266,10 @@ function SearchContent() {
     );
 }
 
-export default function SearchPage() {
+export default function DubaiSearchPage() {
     return (
         <Suspense fallback={<div>Loading...</div>}>
-            <SearchContent />
+            <DubaiSearchContent />
         </Suspense>
     );
 }

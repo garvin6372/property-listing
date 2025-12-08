@@ -12,13 +12,13 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/contexts/theme-context";
-import { useFilter } from "@/contexts/filter-context";
-import { Filter } from "lucide-react";
 import { BookCallModal } from "@/components/book-call-modal";
 
 const navLinks = [
-    { href: "/", label: "Properties", icon: Briefcase },
-    { href: "/search", label: "Search", icon: Search },
+    { href: "/about", label: "Who we are", icon: Info },
+    { href: "/projects", label: "Our Projects", icon: Home },
+    { href: "/services", label: "What we do", icon: Briefcase },
+    { href: "/contact", label: "Contact us", icon: UserCog },
 ];
 
 
@@ -27,91 +27,81 @@ export default function SiteHeader() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const pathname = usePathname();
     const { theme, toggleTheme } = useTheme();
-    const { toggleFilter, isFilterVisible } = useFilter();
+
+    // Show filter button on main search page and regional search pages
+    const showFilterButton = pathname === '/search' || pathname === '/search/dubai' || pathname === '/search/london';
 
     return (
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="container flex h-20 items-center justify-between px-4 md:px-6">
-                <div className="flex items-center gap-2 md:hidden">
-                    <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
-                        <SheetTrigger asChild>
-                            <Button variant="ghost" size="icon">
-                                <Menu />
-                                <span className="sr-only">Open Menu</span>
-                            </Button>
-                        </SheetTrigger>
-                        <SheetContent side="left" className="pr-0">
-                            <Link href="/" className="flex items-center space-x-2 mb-6" onClick={() => setIsMobileMenuOpen(false)}>
-                                <span className="font-serif text-2xl font-bold tracking-tight">Skyvera</span>
-                            </Link>
-                            <div className="flex flex-col space-y-2">
-                                {navLinks.map(link => (
-                                    <Link
-                                        key={link.href}
-                                        href={link.href}
-                                        onClick={() => setIsMobileMenuOpen(false)}
-                                        className={cn(
-                                            "flex items-center gap-2 p-3 rounded-l-md",
-                                            pathname === link.href ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:text-foreground"
-                                        )}
-                                    >
-                                        <link.icon className="h-4 w-4" /> {link.label}
-                                    </Link>
-                                ))}
-                            </div>
-                            {/* <div className="mt-6">
-                                <Button asChild className="w-full justify-center">
-                                    <Link href="/admin/login">
-                                        <UserCog className="h-4 w-4 mr-2" />
-                                        Admin Login
-                                    </Link>
+            <div className="container mx-auto px-4 md:px-6">
+                <div className="grid grid-cols-3 items-center h-20 gap-4">
+                    {/* Left Side - Hamburger Menu */}
+                    <div className="flex items-center justify-start">
+                        <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+                            <SheetTrigger asChild>
+                                <Button variant="ghost" size="icon">
+                                    <Menu />
+                                    <span className="sr-only">Open Menu</span>
                                 </Button>
-                            </div> */}
-                        </SheetContent>
-                    </Sheet>
-                </div>
+                            </SheetTrigger>
+                            <SheetContent side="left" className="pr-0">
+                                <div className="flex flex-col space-y-2">
+                                    {navLinks.map(link => (
+                                        <Link
+                                            key={link.href}
+                                            href={link.href}
+                                            onClick={() => setIsMobileMenuOpen(false)}
+                                            className={cn(
+                                                "flex items-center gap-2 p-3 rounded-l-md",
+                                                pathname === link.href ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:text-foreground"
+                                            )}
+                                        >
+                                            <link.icon className="h-4 w-4" /> {link.label}
+                                        </Link>
+                                    ))}
+                                </div>
+                            </SheetContent>
+                        </Sheet>
+                    </div>
 
-                <div className="flex items-center">
-                    <Link href="/" className="flex items-center space-x-2">
-                        <span className="font-serif text-2xl font-bold tracking-tight">Skyvera</span>
-                    </Link>
-                </div>
+                    {/* Center - Logo */}
+                    <div className="flex items-center justify-center">
+                        <Link href="/" className="flex items-center">
+                            {theme === "dark" ? (
+                                <Image
+                                    src="/dark_theme_logo.png"
+                                    alt="Skyvera Logo"
+                                    width={150}
+                                    height={40}
+                                    priority
+                                    className="h-10 w-auto"
+                                />
+                            ) : (
+                                <Image
+                                    src="/light_theme_logo.png"
+                                    alt="Skyvera Logo"
+                                    width={150}
+                                    height={40}
+                                    priority
+                                    className="h-10 w-auto"
+                                />
+                            )}
+                        </Link>
+                    </div>
 
-                <nav className="hidden md:flex items-center gap-4 text-sm font-medium text-muted-foreground">
-                    <Link
-                        href="/"
-                        className="transition-colors hover:text-foreground flex items-center gap-1"
-                    >
-                        <Briefcase className="h-4 w-4" /> Home
-                    </Link>
-                    <Link
-                        href="/search"
-                        className="transition-colors hover:text-foreground flex items-center gap-1"
-                    >
-                        <Search className="h-4 w-4" /> Search Properties
-                    </Link>
-                </nav>
-
-
-                <div className="flex items-center justify-end space-x-2">
-                    {pathname === '/search' && (
-                        <Button variant="ghost" size="sm" onClick={toggleFilter} className="flex gap-2">
-                            <Filter className="h-4 w-4" />
-                            Filters
+                    {/* Right Side - Action Buttons */}
+                    <div className="flex items-center justify-end gap-2">
+                        {/* Theme Toggle Button */}
+                        <Button variant="ghost" size="icon" onClick={toggleTheme} aria-label="Toggle theme">
+                            {theme === "dark" ? (
+                                <Sun className="h-5 w-5" />
+                            ) : (
+                                <Moon className="h-5 w-5" />
+                            )}
                         </Button>
-                    )}
 
-                    {/* Theme Toggle Button */}
-                    <Button variant="ghost" size="icon" onClick={toggleTheme} aria-label="Toggle theme">
-                        {theme === "dark" ? (
-                            <Sun className="h-5 w-5" />
-                        ) : (
-                            <Moon className="h-5 w-5" />
-                        )}
-                    </Button>
-
-                    <BookCallModal />
-
+                        <BookCallModal />
+                    </div>
                 </div>
             </div>
         </header>

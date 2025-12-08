@@ -27,6 +27,9 @@ export function SupabaseAuthProvider({ children }: { children: ReactNode }) {
         // In a real application, you would implement proper session management
         const token = localStorage.getItem('admin-token');
         if (token) {
+          // Restore cookie if it's missing (syncs server and client state)
+          document.cookie = `admin-token=${token}; path=/; max-age=86400`; // 24 hours
+
           // Validate token (simplified for this example)
           setUser({
             id: 'admin-user-id',
