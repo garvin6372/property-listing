@@ -167,50 +167,52 @@ function DubaiSearchContent() {
                     <main className="lg:col-span-12">
                         <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-4">
                             <h1 className="text-2xl font-serif font-medium tracking-tight text-[#2C2A26] dark:text-white">Dubai Properties <span className="text-muted-foreground font-light text-lg">({filteredProperties.length} properties found)</span></h1>
-                            <div className="flex items-center gap-2 w-full md:w-auto">
-                                <Button variant="ghost" size="sm" onClick={toggleFilter} className="hidden md:flex gap-2">
+                            <div className="flex flex-col sm:flex-row items-center gap-2 w-full md:w-auto">
+                                <Button variant="ghost" size="sm" onClick={toggleFilter} className="flex gap-2">
                                     <Filter className="h-4 w-4" />
                                     Filters
                                 </Button>
-                                {/* Buy/Rent Filter Dropdown */}
-                                <Select value={status} onValueChange={handleStatusChange}>
-                                    <SelectTrigger className="w-full md:w-[150px] bg-card border-border">
-                                        <SelectValue placeholder="Status" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="all">All Status</SelectItem>
-                                        <SelectItem value="Buy">Buy</SelectItem>
-                                        <SelectItem value="Let">Let</SelectItem>
-                                    </SelectContent>
-                                </Select>
-                                {/* Company Filter Dropdown */}
-                                <Select value={company} onValueChange={handleCompanyChange}>
-                                    <SelectTrigger className="w-full md:w-[150px] bg-card border-border">
-                                        <SelectValue placeholder="Company" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="all">All Companies</SelectItem>
-                                        {companies.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
-                                    </SelectContent>
-                                </Select>
-                                <Select defaultValue="newest" onValueChange={setSortBy}>
-                                    <SelectTrigger className="w-full md:w-[150px] bg-card border-border">
-                                        <SelectValue placeholder="Sort by" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="newest">Newest First</SelectItem>
-                                        <SelectItem value="price-asc">Price: Low to High</SelectItem>
-                                        <SelectItem value="price-desc">Price: High to Low</SelectItem>
-                                    </SelectContent>
-                                </Select>
-                                <ToggleGroup type="single" defaultValue="grid" variant="outline" className="bg-card border rounded-md p-1 h-10 gap-0" onValueChange={(value) => value && setView(value)}>
+                                <div className="flex flex-col sm:flex-row gap-2 w-full">
+                                    {/* Buy/Rent Filter Dropdown */}
+                                    <Select value={status} onValueChange={handleStatusChange}>
+                                        <SelectTrigger className="w-full sm:w-[150px] bg-card border-border">
+                                            <SelectValue placeholder="Status" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="all">All Status</SelectItem>
+                                            <SelectItem value="Buy">Buy</SelectItem>
+                                            <SelectItem value="Let">Let</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                    {/* Company Filter Dropdown */}
+                                    <Select value={company} onValueChange={handleCompanyChange}>
+                                        <SelectTrigger className="w-full sm:w-[150px] bg-card border-border">
+                                            <SelectValue placeholder="Company" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="all">All Companies</SelectItem>
+                                            {companies.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+                                        </SelectContent>
+                                    </Select>
+                                    <Select defaultValue="newest" onValueChange={setSortBy}>
+                                        <SelectTrigger className="w-full sm:w-[150px] bg-card border-border">
+                                            <SelectValue placeholder="Sort by" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="newest">Newest First</SelectItem>
+                                            <SelectItem value="price-asc">Price: Low to High</SelectItem>
+                                            <SelectItem value="price-desc">Price: High to Low</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+                                {/* <ToggleGroup type="single" defaultValue="grid" variant="outline" className="bg-card border rounded-md p-1 h-10 gap-0" onValueChange={(value) => value && setView(value)}>
                                     <ToggleGroupItem value="grid" aria-label="Grid view" className="border-none data-[state=on]:bg-background">
                                         <Grid3x3 className="h-4 w-4" />
                                     </ToggleGroupItem>
                                     <ToggleGroupItem value="list" aria-label="List view" className="border-none data-[state=on]:bg-background">
                                         <List className="h-4 w-4" />
                                     </ToggleGroupItem>
-                                </ToggleGroup>
+                                </ToggleGroup> */}
                             </div>
                         </div>
                         {paginatedProperties.length > 0 ? (

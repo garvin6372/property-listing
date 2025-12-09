@@ -1,7 +1,7 @@
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
-*/
+ */
 
 
 import React from 'react';
@@ -13,17 +13,22 @@ const Hero: React.FC = () => {
 
     return (
         <section className="relative w-full h-screen min-h-[500px] md:min-h-[600px] lg:min-h-[800px] overflow-hidden bg-gray-200">
-            {/* Background Image - Architecture */}
+            {/* Background Video */}
             <div className="absolute inset-0 w-full h-full">
-                <img
-                    src="/landing_page.png"
-                    alt="Minimalist modern home"
-                    className="w-full h-full object-cover contrast-[0.8] brightness-[0.9] animate-[pulse_15s_ease-in-out_infinite_alternate]"
-                />
+                <video 
+                    autoPlay 
+                    loop 
+                    muted 
+                    playsInline
+                    className="w-full h-full object-cover contrast-[0.8] brightness-[0.9]"
+                >
+                    <source src="/1765296760046076.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                </video>
                 {/* Warmer Brown Overlay for Richness */}
                 <div className="absolute inset-0 bg-[#433E38]/40 mix-blend-multiply"></div>
                 {/* Deep Sepia Tone for Shadow Depth */}
-                <div className="absolute inset-0 bg-[#313030]/20"></div>
+                {/* <div className="absolute inset-0 bg-[#313030]/20"></div> */}
             </div>
 
             {/* Content */}
