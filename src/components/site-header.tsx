@@ -34,25 +34,25 @@ export default function SiteHeader() {
     return (
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div className="container mx-auto px-4 md:px-6">
-                <div className="grid grid-cols-3 items-center h-20 gap-4">
+                <div className="grid grid-cols-3 items-center h-16 md:h-20 gap-2 md:gap-4">
                     {/* Left Side - Hamburger Menu */}
                     <div className="flex items-center justify-start">
                         <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
                             <SheetTrigger asChild>
-                                <Button variant="ghost" size="icon">
-                                    <Menu />
+                                <Button variant="ghost" size="icon" className="h-8 w-8 md:h-10 md:w-10">
+                                    <Menu className="h-5 w-5 md:h-6 md:w-6" />
                                     <span className="sr-only">Open Menu</span>
                                 </Button>
                             </SheetTrigger>
-                            <SheetContent side="left" className="pr-0">
-                                <div className="flex flex-col space-y-2">
+                            <SheetContent side="left" className="pr-0 w-64 md:w-80">
+                                <div className="flex flex-col space-y-2 mt-4">
                                     {navLinks.map(link => (
                                         <Link
                                             key={link.href}
                                             href={link.href}
                                             onClick={() => setIsMobileMenuOpen(false)}
                                             className={cn(
-                                                "flex items-center gap-2 p-3 rounded-l-md",
+                                                "flex items-center gap-2 p-3 rounded-l-md text-base md:text-lg",
                                                 pathname === link.href ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:text-foreground"
                                             )}
                                         >
@@ -71,32 +71,32 @@ export default function SiteHeader() {
                                 <Image
                                     src="/dark_theme_logo.png"
                                     alt="Skyvera Logo"
-                                    width={150}
-                                    height={40}
+                                    width={120}
+                                    height={32}
                                     priority
-                                    className="h-10 w-auto"
+                                    className="h-8 w-auto md:h-10"
                                 />
                             ) : (
                                 <Image
                                     src="/light_theme_logo.png"
                                     alt="Skyvera Logo"
-                                    width={150}
-                                    height={40}
+                                    width={120}
+                                    height={32}
                                     priority
-                                    className="h-10 w-auto"
+                                    className="h-8 w-auto md:h-10"
                                 />
                             )}
                         </Link>
                     </div>
 
                     {/* Right Side - Action Buttons */}
-                    <div className="flex items-center justify-end gap-2">
+                    <div className="flex items-center justify-end gap-1 md:gap-2">
                         {/* Theme Toggle Button */}
-                        <Button variant="ghost" size="icon" onClick={toggleTheme} aria-label="Toggle theme">
+                        <Button variant="ghost" size="icon" onClick={toggleTheme} aria-label="Toggle theme" className="h-8 w-8 md:h-10 md:w-10">
                             {theme === "dark" ? (
-                                <Sun className="h-5 w-5" />
+                                <Sun className="h-4 w-4 md:h-5 md:w-5" />
                             ) : (
-                                <Moon className="h-5 w-5" />
+                                <Moon className="h-4 w-4 md:h-5 md:w-5" />
                             )}
                         </Button>
 
