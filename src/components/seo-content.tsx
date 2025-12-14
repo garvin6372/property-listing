@@ -8,7 +8,7 @@ export function SeoContent() {
                 <div className="mx-auto text-muted-foreground text-lg leading-relaxed space-y-6">
                     <p>
                         The real estate markets in London and Dubai continue to offer exceptional opportunities for global investors.
-                        London remains a safe haven for capital preservation, with zones 3–6 showing promising growth due to improved transport links and regeneration projects.
+                        London remains a safe haven for capital preservation, with zones 1-6 showing promising growth due to improved transport links and regeneration projects.
                         Meanwhile, Dubai offers some of the highest rental yields in the world, tax-free income, and attractive payment plans for off-plan properties.
                     </p>
                     <p>

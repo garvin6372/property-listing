@@ -80,7 +80,7 @@ export async function getClientFeaturedProperties(search?: string) {
   let query = client
     .from('properties')
     .select('*')
-    .limit(6)
+    .limit(3)
     .order('created_at', { ascending: false });
 
   // If search parameter exists, filter by location or region

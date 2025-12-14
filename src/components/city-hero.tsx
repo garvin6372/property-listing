@@ -1,7 +1,6 @@
 
 "use client"
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./ui/button";
 

@@ -12,7 +12,7 @@ import { ValuationModal } from "@/components/valuation-modal";
 const Hero: React.FC = () => {
 
     return (
-        <section className="relative w-full h-screen min-h-[500px] md:min-h-[600px] lg:min-h-[800px] overflow-hidden bg-gray-200">
+        <section className="relative w-full h-[500px] md:h-[580px] lg:h-[740px] overflow-hidden bg-gray-200">
             {/* Background Video */}
             <div className="absolute inset-0 w-full h-full">
                 <video 
@@ -32,12 +32,12 @@ const Hero: React.FC = () => {
             </div>
 
             {/* Content */}
-            <div className="relative z-10 h-full flex flex-col justify-center items-start text-left md:items-center md:text-center px-4 sm:px-6">
-                <div className="animate-fade-in-up w-full md:w-auto">
+            <div className="relative z-10 h-full flex flex-col justify-center items-center text-center px-4 sm:px-6">
+                <div className="animate-fade-in-up w-full max-w-4xl mx-auto text-center">
                     <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-serif font-normal text-white tracking-tight mb-4 md:mb-6 drop-shadow-sm">
                         London & Dubai Property Experts
                     </h1>
-                    <p className="max-w-lg mx-0 md:mx-auto text-base md:text-xl text-white/90 font-light leading-relaxed mb-6 md:mb-8 text-shadow-sm">
+                    <p className="max-w-lg mx-auto text-white md:text-xl text-white/90 font-semibold leading-relaxed mb-6 md:mb-8">
                         Helping buyers & investors worldwide.
                     </p>
 
@@ -48,9 +48,9 @@ const Hero: React.FC = () => {
                         <span className="relative z-10 group-hover:text-[#2C2A26]">Explore Listings</span>
                     </Link>
                 </div>
-                <div className="mt-6 md:mt-8">
+                <div className="mt-2 flex justify-center">
                     <ValuationModal>
-                        <Button className="rounded-full bg-white text-[#2C2A26] hover:bg-gray-100 transition-all duration-300 px-6 py-4 md:px-8 md:py-6 text-base md:text-lg">
+                        <Button className="rounded-full bg-white text-[#2C2A26] hover:bg-gray-100 transition-all duration-300 px-4 py-3 md:px-6 md:py-4 text-base md:text-lg">
                             Get a Free Valuation
                         </Button>
                     </ValuationModal>

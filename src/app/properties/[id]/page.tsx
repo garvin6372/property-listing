@@ -107,17 +107,17 @@ export default async function PropertyPage({ params }: { params: { id: string } 
           <div className="lg:col-span-2 space-y-8">
 
             {/* Key Features */}
-            <div className="bg-card rounded-xl p-8 shadow-sm border border-border/50">
+            <div className="bg-card rounded-xl p-6 shadow-sm border border-border/50">
               <h2 className="font-serif text-2xl text-[#2C2A26] dark:text-white mb-6">Property Overview</h2>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-y-8 gap-x-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {propertyDetails.map(detail => (
-                  <div key={detail.label} className="flex items-center gap-4">
-                    <div className="p-3 bg-secondary rounded-full">
+                  <div key={detail.label} className="flex items-start gap-4">
+                    <div className="p-3 bg-secondary rounded-full flex-shrink-0">
                       {detail.icon}
                     </div>
                     <div>
                       <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">{detail.label}</p>
-                      <p className="font-medium text-lg text-[#2C2A26] dark:text-white">{detail.value}</p>
+                      <p className="font-medium text-lg text-[#2C2A26] dark:text-white break-words">{detail.value}</p>
                     </div>
                   </div>
                 ))}

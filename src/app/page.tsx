@@ -1,18 +1,12 @@
 'use client'
 
-import React, { useState, useEffect } from 'react';
-import { HeroSearch } from "@/components/hero-search";
-import { Card } from "@/components/ui/card";
+import React from 'react';
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { getClientFeaturedProperties } from '@/lib/data';
 import { PropertyCard } from '@/components/property-card';
-import { Button } from "@/components/ui/button";
 import Hero from "@/components/hero";
-import { CityHero } from "@/components/city-hero";
 import { Testimonials } from "@/components/testimonials";
-import { ViewState } from '../../types';
-import LoadingScreen from '@/components/LoadingScreen';
 import { CitySections } from "@/components/city-sections";
 import { WhySkyvera } from "@/components/why-skyvera";
 import { HowItWorks } from "@/components/how-it-works";
@@ -65,7 +59,7 @@ export default function Home() {
     // Get featured properties (first 6)
     getClientFeaturedProperties().then(properties => {
       if (properties && properties.length > 0) {
-        setFeaturedProperties(properties.slice(0, 6));
+        setFeaturedProperties(properties.slice(0, 3));
       }
     });
   }, []);
@@ -117,9 +111,9 @@ export default function Home() {
                 Discover our handpicked selection of premium properties in prime locations.
               </p>
             </div>
-            <Button asChild variant="outline" className="rounded-full px-6 md:px-8 h-10 md:h-12 border-primary text-primary hover:bg-primary hover:text-white dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-primary transition-all duration-300">
+            {/* <Button asChild variant="outline" className="rounded-full px-6 md:px-8 h-10 md:h-12 border-primary text-primary hover:bg-primary hover:text-white dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-primary transition-all duration-300">
               <Link href="/search">View All Properties</Link>
-            </Button>
+            </Button> */}
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">

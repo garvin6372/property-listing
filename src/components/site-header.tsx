@@ -5,9 +5,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Briefcase, Home, Info, Menu, Moon, Search, Sun, UserCog, X } from "lucide-react";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
-import { Input } from "./ui/input";
-import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "./ui/sheet";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -15,6 +13,7 @@ import { useTheme } from "@/contexts/theme-context";
 import { BookCallModal } from "@/components/book-call-modal";
 
 const navLinks = [
+    { href: "/", label: "Home", icon: Home },
     { href: "/about", label: "Who we are", icon: Info },
     { href: "/projects", label: "Our Projects", icon: Home },
     { href: "/services", label: "What we do", icon: Briefcase },
@@ -33,18 +32,19 @@ export default function SiteHeader() {
 
     return (
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="container mx-auto px-4 md:px-6">
+            <div className="mx-auto px-4 md:px-6">
                 <div className="grid grid-cols-3 items-center h-16 md:h-20 gap-2 md:gap-4">
                     {/* Left Side - Hamburger Menu */}
                     <div className="flex items-center justify-start">
                         <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
                             <SheetTrigger asChild>
-                                <Button variant="ghost" size="icon" className="h-8 w-8 md:h-10 md:w-10">
-                                    <Menu className="h-5 w-5 md:h-6 md:w-6" />
+                                <Button variant="ghost" size="icon" className="h-10 w-10 md:h-12 md:w-12">
+                                    <Menu className="h-6 w-6 md:h-8 md:w-8" />
                                     <span className="sr-only">Open Menu</span>
                                 </Button>
                             </SheetTrigger>
-                            <SheetContent side="left" className="pr-0 w-64 md:w-80">
+                            <SheetContent side="left" className="pr-0 w-72 md:w-96">
+                                <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
                                 <div className="flex flex-col space-y-2 mt-4">
                                     {navLinks.map(link => (
                                         <Link
@@ -52,11 +52,11 @@ export default function SiteHeader() {
                                             href={link.href}
                                             onClick={() => setIsMobileMenuOpen(false)}
                                             className={cn(
-                                                "flex items-center gap-2 p-3 rounded-l-md text-base md:text-lg",
+                                                "flex items-center gap-3 p-4 rounded-l-md text-lg md:text-xl",
                                                 pathname === link.href ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:text-foreground"
                                             )}
                                         >
-                                            <link.icon className="h-4 w-4" /> {link.label}
+                                            <link.icon className="h-5 w-5" /> <span className="text-lg">{link.label}</span>
                                         </Link>
                                     ))}
                                 </div>

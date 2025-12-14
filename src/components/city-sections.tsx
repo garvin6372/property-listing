@@ -1,6 +1,5 @@
 "use client"
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { ArrowRight } from "lucide-react";
@@ -33,7 +32,7 @@ export function CitySections() {
             <div className="absolute inset-0 z-20 flex flex-col justify-end p-6 md:p-12">
               <h3 className="text-2xl md:text-4xl font-serif text-white mb-3 md:mb-4">London</h3>
               <p className="text-white/90 text-base md:text-lg mb-6 md:mb-8 max-w-md">
-                Buy-to-let, family homes, new-builds in Zones 3–6.
+                Buy-to-let, family homes, new-builds in Zones 1–6.
               </p>
               <Button asChild className="w-fit bg-white text-black hover:bg-white/90 rounded-full px-6 md:px-8 py-2 md:py-3 text-sm md:text-base">
                 <Link href="/search/london">
