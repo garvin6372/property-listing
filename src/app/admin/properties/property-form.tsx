@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Image from "next/image";
-import { uploadPropertyImage } from "@/lib/supabase/storage";
+import { uploadPropertyImage, getPropertyImagePublicUrl } from "@/lib/supabase/storage";
 import { uploadImageAction } from "@/app/actions";
 
 interface PropertyFormProps {
@@ -142,7 +142,17 @@ export function PropertyForm({ property }: PropertyFormProps) {
   const [listingStatuses, setListingStatuses] = useState<string[]>([]);
 
   // State for uploaded images
-  const [uploadedImages, setUploadedImages] = useState<{ id: string, url: string }[]>([]);
+  const [uploadedImages, setUploadedImages] = useState<{ id: string, url: string }[]>(() => {
+    // Initialize with existing property images when editing
+    if (property && property.images) {
+      return property.images.map(img => ({
+        id: img.id,
+        // Use getPropertyImagePublicUrl for uploaded images, imageUrl for placeholders
+        url: img.imageUrl.includes('http') ? img.imageUrl : getPropertyImagePublicUrl(img.id)
+      }));
+    }
+    return [];
+  });
 
   // Form validation state
   const [validationErrors, setValidationErrors] = useState<FormState['errors']>({});
@@ -234,7 +244,7 @@ export function PropertyForm({ property }: PropertyFormProps) {
 
   // Handle form submission with frontend validation
   const handleSubmit = (formData: FormData) => {
-    // Add validation for at least one image uploaded
+    // Add validation for at least one image
     if (uploadedImages.length === 0) {
       setValidationErrors({ imageIds: ['At least one image is required'] });
       return;
@@ -245,7 +255,7 @@ export function PropertyForm({ property }: PropertyFormProps) {
     setValidationErrors(errors);
 
     if (isValid) {
-      // Add uploaded image IDs to form data
+      // Add image IDs to form data (both existing and newly uploaded)
       const imageIds = uploadedImages.map(img => img.id).join(',');
       formData.set('imageIds', imageIds);
 
@@ -425,10 +435,10 @@ export function PropertyForm({ property }: PropertyFormProps) {
                 {uploadedImages.map((image) => (
                   <div key={image.id}>
                     <div className="relative aspect-video mb-2 rounded-md overflow-hidden">
-                      <Image src={image.url} alt={`Uploaded image`} fill className="object-cover" />
+                      <Image src={image.url} alt={`Property image`} fill className="object-cover" />
                     </div>
                     <div className="text-sm font-medium leading-none text-center mt-1">
-                      Uploaded Image
+                      {property && property.images.some(img => img.id === image.id) ? 'Existing Image' : 'New Image'}
                     </div>
                   </div>
                 ))}
