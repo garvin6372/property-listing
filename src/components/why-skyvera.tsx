@@ -5,7 +5,7 @@ export function WhySkyvera() {
     return (
         <section className="py-12 md:py-24 bg-background">
             <div className="container mx-auto px-4">
-                <div className="flex flex-col lg:flex-row items-center gap-16">
+                <div className="flex flex-col lg:flex-row items-center gap-8 md:gap-16">
                     <div className="flex-1">
                         <span className="text-sm font-medium uppercase tracking-widest text-muted-foreground mb-2 block">Why Choose Us</span>
                         <h2 className="text-3xl md:text-5xl font-serif text-[#2C2A26] dark:text-white leading-tight mb-6">
@@ -30,17 +30,20 @@ export function WhySkyvera() {
                         </div>
                     </div>
 
-                    <div className="flex-1 relative">
-                        <div className="relative h-[500px] w-full rounded-2xl overflow-hidden bg-muted">
-                            {/* Placeholder for founder image */}
-                            <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
-                                <span className="text-lg">Founder Image</span>
-                            </div>
-                            {/* In real app, use: <Image src="/founder.jpg" alt="Founder" fill className="object-cover" /> */}
+                    <div className="flex-1 relative w-full">
+                        <div className="relative h-[300px] md:h-[500px] w-full rounded-2xl overflow-hidden bg-muted">
+                            {/* Display image with proper fallback for small screens */}
+                            <Image 
+                                src="/fulllogo.png" 
+                                alt="Founder" 
+                                fill 
+                                className="object-cover" 
+                                sizes="(max-width: 768px) 100vw, 50vw"
+                            />
                         </div>
-                        <div className="absolute -bottom-6 -left-6 bg-white dark:bg-[#2C2A26] p-6 rounded-xl shadow-xl max-w-xs border border-border">
-                            <p className="font-serif text-xl mb-2">"Our mission is to make property investment accessible and transparent for everyone."</p>
-                            <p className="font-medium text-sm text-muted-foreground">- Founder, Skyvera</p>
+                        <div className="absolute -bottom-4 -left-4 md:-bottom-6 md:-left-6 bg-white dark:bg-[#2C2A26] p-3 md:p-6 rounded-xl shadow-xl max-w-[240px] md:max-w-xs border border-border">
+                            <p className="font-serif text-sm md:text-xl mb-2">"Our mission is to make property investment accessible and transparent for everyone."</p>
+                            <p className="font-medium text-[0.7rem] md:text-sm text-muted-foreground">- Founder, Skyvera</p>
                         </div>
                     </div>
                 </div>

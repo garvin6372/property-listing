@@ -54,10 +54,9 @@ export function BookCallModal() {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button className="flex gap-2 max-md:hidden">
+                <Button className="flex gap-2 md:flex md:gap-2">
                     <PhoneCall className="h-4 w-4" />
-                    <span className="hidden sm:inline">Book a Free Consultation</span>
-                    <span className="sm:hidden">Book Call</span>
+                    <span className="hidden md:inline">Book a Free Consultation</span>
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
