@@ -1,4 +1,4 @@
-import { getProperties } from "@/lib/data";
+import { getProjectProperties } from "@/lib/data";
 import { PropertyCard } from "@/components/property-card";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import Image from "next/image";
@@ -6,7 +6,7 @@ import Image from "next/image";
 export const dynamic = 'force-dynamic';
 
 export default async function ProjectsPage() {
-    const properties = await getProperties().catch(() => []);
+    const properties = await getProjectProperties().catch(() => []);
     const heroImage = PlaceHolderImages.find((img) => img.id === "dubai-offplan-1")?.imageUrl || "https://placehold.co/1920x600";
 
     return (

@@ -44,7 +44,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center bg-[#0f172a] transition-all duration-1000 ease-[cubic-bezier(0.76,0,0.24,1)]
+      className={`fixed inset-0 z-50 flex items-center justify-center bg-[#0f172a] transition-all duration-1000 ease-loading
       ${stage === 3 ? '-translate-y-full' : 'translate-y-0'}`}
     >
       <div

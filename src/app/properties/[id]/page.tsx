@@ -34,11 +34,11 @@ export default async function PropertyPage({ params }: { params: { id: string } 
   }
 
   const propertyDetails = [
-    { icon: property.region === 'Dubai' ? <Building className="w-5 h-5 text-[#2C2A26] dark:text-white" /> : <Home className="w-5 h-5 text-[#2C2A26] dark:text-white" />, label: "Type", value: property.type },
-    { icon: <BedDouble className="w-5 h-5 text-[#2C2A26] dark:text-white" />, label: "Bedrooms", value: property.bedrooms },
-    { icon: <Bath className="w-5 h-5 text-[#2C2A26] dark:text-white" />, label: "Bathrooms", value: property.bathrooms },
-    { icon: <SquareGanttChart className="w-5 h-5 text-[#2C2A26] dark:text-white" />, label: "Area", value: `${property.area.toLocaleString()} sqft` },
-    { icon: <Map className="w-5 h-5 text-[#2C2A26] dark:text-white" />, label: "Region", value: property.region },
+    { icon: property.region === 'Dubai' ? <Building className="w-5 h-5 text-primary" /> : <Home className="w-5 h-5 text-primary" />, label: "Type", value: property.type },
+    { icon: <BedDouble className="w-5 h-5 text-primary" />, label: "Bedrooms", value: property.bedrooms },
+    { icon: <Bath className="w-5 h-5 text-primary" />, label: "Bathrooms", value: property.bathrooms },
+    { icon: <SquareGanttChart className="w-5 h-5 text-primary" />, label: "Area", value: `${property.area.toLocaleString()} sqft` },
+    { icon: <Map className="w-5 h-5 text-primary" />, label: "Region", value: property.region },
   ];
 
   return (
@@ -50,28 +50,28 @@ export default async function PropertyPage({ params }: { params: { id: string } 
         <div className="flex flex-col md:flex-row justify-between items-start gap-6">
           <div className="space-y-4">
             <div className="flex flex-wrap items-center gap-3">
-              <Badge className={`capitalize px-4 py-1.5 text-sm font-medium tracking-wide rounded-full ${property.status === 'Buy' || property.status === 'Rent' ? 'bg-primary text-white dark:bg-white dark:text-primary' : 'bg-green-600 text-white'}`}>
+              <Badge className={`capitalize px-4 py-1.5 text-sm font-medium tracking-wide rounded-full ${property.status === 'Buy' || property.status === 'Rent' ? 'bg-primary text-white dark:bg-primary dark:text-white' : 'bg-green-600 text-white'}`}>
                 {property.status}
               </Badge>
               {property.dubaiStatus && (property.dubaiStatus as string) !== 'none' && (
-                <Badge variant="outline" className="text-sm px-4 py-1.5 rounded-full border-[#2C2A26] text-[#2C2A26] dark:border-white dark:text-white">
+                <Badge variant="outline" className="text-sm px-4 py-1.5 rounded-full border-border/80 text-foreground font-light tracking-wide">
                   {property.dubaiStatus}
                 </Badge>
               )}
             </div>
             <div>
-              <h1 className="text-3xl md:text-5xl font-serif font-medium text-[#2C2A26] dark:text-white mb-2 leading-tight">
+              <h1 className="text-3xl md:text-5xl font-serif font-light tracking-wide text-foreground mb-3 leading-tight">
                 {property.title}
               </h1>
-              <div className="flex items-center text-muted-foreground text-lg font-light">
-                <MapPin className="w-5 h-5 mr-2 text-[#2C2A26] dark:text-white" />
+              <div className="flex items-center text-muted-foreground text-lg font-light tracking-wide">
+                <MapPin className="w-5 h-5 mr-2 text-primary" />
                 <span>{property.location}</span>
               </div>
             </div>
           </div>
-          <div className="text-3xl md:text-4xl font-serif text-[#2C2A26] dark:text-white flex-shrink-0">
+          <div className="text-4xl md:text-5xl font-serif font-light text-foreground flex-shrink-0 tracking-tight">
             {formatPrice(property.price, property.region === 'Dubai' ? 'AED' : 'GBP')}
-            {property.status === 'Rent' && <span className="text-lg font-sans font-normal text-muted-foreground ml-1">/year</span>}
+            {property.status === 'Rent' && <span className="text-lg font-sans font-light text-muted-foreground ml-1">/year</span>}
           </div>
         </div>
 
@@ -97,8 +97,8 @@ export default async function PropertyPage({ params }: { params: { id: string } 
               ))}
             </CarouselContent>
             <div className="absolute bottom-6 right-6 flex gap-2 z-10">
-              <CarouselPrevious className="static translate-y-0 bg-white/90 hover:bg-white border-none text-[#2C2A26] h-10 w-10" />
-              <CarouselNext className="static translate-y-0 bg-white/90 hover:bg-white border-none text-[#2C2A26] h-10 w-10" />
+              <CarouselPrevious className="static translate-y-0 bg-white/50 backdrop-blur-md hover:bg-white border-none text-foreground h-12 w-12 rounded-full shadow-soft transition-all duration-300" />
+              <CarouselNext className="static translate-y-0 bg-white/50 backdrop-blur-md hover:bg-white border-none text-foreground h-12 w-12 rounded-full shadow-soft transition-all duration-300" />
             </div>
           </Carousel>
         </div>
@@ -107,17 +107,17 @@ export default async function PropertyPage({ params }: { params: { id: string } 
           <div className="lg:col-span-2 space-y-8">
 
             {/* Key Features */}
-            <div className="bg-card rounded-xl p-6 shadow-sm border border-border/50">
-              <h2 className="font-serif text-2xl text-[#2C2A26] dark:text-white mb-6">Property Overview</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="bg-card rounded-xl p-8 shadow-soft border border-border/20">
+              <h2 className="font-serif text-3xl font-light text-foreground tracking-wide mb-8">Property Overview</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {propertyDetails.map(detail => (
                   <div key={detail.label} className="flex items-start gap-4">
-                    <div className="p-3 bg-secondary rounded-full flex-shrink-0">
+                    <div className="p-3 bg-muted/50 rounded-full flex-shrink-0">
                       {detail.icon}
                     </div>
                     <div>
-                      <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">{detail.label}</p>
-                      <p className="font-medium text-lg text-[#2C2A26] dark:text-white break-words">{detail.value}</p>
+                      <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground/80 mb-1.5">{detail.label}</p>
+                      <p className="font-light text-lg text-foreground tracking-wide break-words">{detail.value}</p>
                     </div>
                   </div>
                 ))}
@@ -125,9 +125,9 @@ export default async function PropertyPage({ params }: { params: { id: string } 
             </div>
 
             {/* Description */}
-            <div className="bg-card rounded-xl p-8 shadow-sm border border-border/50">
-              <h2 className="font-serif text-2xl text-[#2C2A26] dark:text-white mb-6">Description</h2>
-              <div className="prose prose-lg max-w-none dark:prose-invert text-muted-foreground font-light leading-relaxed">
+            <div className="bg-card rounded-xl p-8 shadow-soft border border-border/20">
+              <h2 className="font-serif text-3xl font-light text-foreground tracking-wide mb-8">Description</h2>
+              <div className="prose prose-lg max-w-none dark:prose-invert text-muted-foreground font-light leading-loose tracking-wide">
                 <p>{property.description}</p>
               </div>
             </div>
@@ -136,8 +136,8 @@ export default async function PropertyPage({ params }: { params: { id: string } 
 
           <aside className="lg:col-span-1">
             <div className="sticky top-24 space-y-6">
-              <div className="bg-card rounded-xl p-6 shadow-sm border border-border/50">
-                <h3 className="font-serif text-xl text-[#2C2A26] dark:text-white mb-6">Interested in this property?</h3>
+              <div className="bg-card rounded-xl p-8 shadow-soft border border-border/20">
+                <h3 className="font-serif text-2xl font-light text-foreground tracking-wide mb-8">Interested in this property?</h3>
                 <InquiryForm propertyId={property.id} propertyTitle={property.title} />
               </div>
             </div>

@@ -72,6 +72,14 @@ export default {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
       },
+      boxShadow: {
+        'soft': '0 8px 30px rgba(0, 0, 0, 0.04)',
+        'soft-lg': '0 20px 40px rgba(0, 0, 0, 0.08)',
+      },
+      transitionTimingFunction: {
+        'luxury': 'cubic-bezier(0.25, 0.1, 0.25, 1)',
+        'loading': 'cubic-bezier(0.76, 0, 0.24, 1)',
+      },
       keyframes: {
         'accordion-down': {
           from: {

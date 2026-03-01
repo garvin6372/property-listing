@@ -1,11 +1,12 @@
 
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { BedDouble, Bath, SquareGanttChart, MapPin, MessageSquare, Heart } from "lucide-react";
+import { BedDouble, Bath, SquareGanttChart, MapPin, Heart } from "lucide-react";
 import type { PropertyWithImages } from "@/lib/types";
 import { formatPrice } from "@/lib/utils";
 import { Button } from "./ui/button";
@@ -17,9 +18,36 @@ interface PropertyCardProps {
 export function PropertyCard({ property }: PropertyCardProps) {
   const displayStatus = property.dubaiStatus && (property.dubaiStatus as string) !== 'none' ? property.dubaiStatus : property.status;
 
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    // Check local storage on mount
+    const savedFavorites = JSON.parse(localStorage.getItem("skyvera_favorites") || "[]");
+    if (savedFavorites.includes(property.id)) {
+      setIsFavorite(true);
+    }
+  }, [property.id]);
+
+  const toggleFavorite = (e: React.MouseEvent) => {
+    e.preventDefault(); // Prevent triggering the link wrapper if any
+
+    const savedFavorites = JSON.parse(localStorage.getItem("skyvera_favorites") || "[]");
+    let newFavorites;
+
+    if (isFavorite) {
+      newFavorites = savedFavorites.filter((id: string) => id !== property.id);
+    } else {
+      newFavorites = [...savedFavorites, property.id];
+    }
+
+    localStorage.setItem("skyvera_favorites", JSON.stringify(newFavorites));
+    setIsFavorite(!isFavorite);
+  };
+
   return (
-    <Card className="w-full overflow-hidden group border-none shadow-sm hover:shadow-xl hover:-translate-y-1 md:hover:-translate-y-2 transition-all duration-500 bg-card">
-      <div className="relative aspect-[4/3] overflow-hidden rounded-t-lg">
+    <Card className="w-full overflow-hidden group border border-border/20 shadow-soft hover:shadow-soft-lg hover:-translate-y-1 transition-all duration-700 ease-luxury bg-card rounded-xl flex flex-col h-full">
+      {/* Big Image Section */}
+      <div className="relative aspect-[4/3] w-full overflow-hidden">
         <Link href={`/properties/${property.id}`} aria-label={property.title}>
           <Image
             src={property.images[0]?.imageUrl || "https://placehold.co/600x400"}
@@ -28,54 +56,62 @@ export function PropertyCard({ property }: PropertyCardProps) {
             className="object-cover transition-transform duration-700 group-hover:scale-110"
             data-ai-hint={property.images[0]?.imageHint || "house exterior"}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            quality={90}
           />
         </Link>
-        <div className="absolute bottom-3 left-3 md:bottom-4 md:left-4">
+        <div className="absolute top-4 right-4 z-20">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="rounded-full bg-white/20 backdrop-blur-md hover:bg-white/40 h-10 w-10 text-white transition-colors"
+            onClick={toggleFavorite}
+          >
+            <Heart size={20} className={isFavorite ? "fill-red-500 text-red-500" : "text-white"} />
+          </Button>
+        </div>
+        <div className="absolute bottom-4 left-4 z-20 flex gap-2">
           <Badge
-            className={`capitalize px-2 py-1 md:px-3 md:py-1 text-xs font-medium tracking-wide rounded-full ${displayStatus === 'Buy' || displayStatus === 'Rent' ? 'bg-primary text-white' : 'bg-green-600 text-white'}`}>
+            className={`capitalize px-3 py-1.5 text-xs font-semibold tracking-wider rounded-md shadow-md ${displayStatus === 'Buy' || displayStatus === 'Rent' ? 'bg-primary/95 text-white' : 'bg-green-600/95 text-white'}`}>
             {displayStatus}
+          </Badge>
+          <Badge className="bg-background/95 text-foreground px-3 py-1.5 text-xs font-semibold tracking-wider rounded-md shadow-md">
+            {property.type}
           </Badge>
         </div>
       </div>
-      <CardContent className="p-4 md:p-6 space-y-3 md:space-y-4">
-        <div className="flex justify-between items-start gap-2 md:gap-4">
-          <Link href={`/properties/${property.id}`} className="group-hover:text-[#2C2A26] transition-colors">
-            <h3 className="font-serif text-lg md:text-xl font-medium leading-tight tracking-tight truncate pr-1 md:pr-2 text-foreground">
-              {property.title}
-            </h3>
-          </Link>
-        </div>
-
-        <div className="text-xl md:text-2xl text-[#2C2A26] dark:text-white">
+      <CardContent className="p-6 md:p-8 flex-1 flex flex-col space-y-4">
+        {/* Price Bold */}
+        <div className="text-2xl md:text-3xl font-bold font-serif text-foreground tracking-tight">
           {formatPrice(property.price, property.region === 'Dubai' ? 'AED' : 'GBP')}
         </div>
 
-        <div className="flex items-center text-muted-foreground text-xs md:text-sm">
-          <MapPin className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2 flex-shrink-0" />
+        {/* Title */}
+        <Link href={`/properties/${property.id}`} className="group-hover:text-primary transition-colors block">
+          <h3 className="font-serif text-xl md:text-2xl font-light tracking-wide leading-relaxed truncate text-foreground/90">
+            {property.title}
+          </h3>
+        </Link>
+
+        {/* Location Small Text */}
+        <div className="flex items-center text-muted-foreground text-xs md:text-sm tracking-wide">
+          <MapPin className="w-4 h-4 mr-1.5 flex-shrink-0 text-primary/70" />
           <span className="truncate font-light">{property.location}</span>
         </div>
 
-        <div className="flex items-center text-xs md:text-sm text-muted-foreground gap-3 md:gap-6 py-2 border-t border-border/50 border-b">
-          <div className="flex items-center gap-1 md:gap-2">
-            <BedDouble className="w-3 h-3 md:w-4 md:h-4" />
-            <span className="font-light">{property.bedrooms} Beds</span>
+        {/* 3 Icons Layout */}
+        <div className="flex items-center justify-between text-muted-foreground text-sm pt-6 mt-auto border-t border-border/30">
+          <div className="flex items-center gap-1.5">
+            <BedDouble className="w-4 h-4 text-primary" />
+            <span className="font-medium">{property.bedrooms} <span className="font-light text-xs sm:text-sm opacity-80">Beds</span></span>
           </div>
-          <div className="flex items-center gap-1 md:gap-2">
-            <Bath className="w-3 h-3 md:w-4 md:h-4" />
-            <span className="font-light">{property.bathrooms} Baths</span>
+          <div className="flex items-center gap-1.5">
+            <Bath className="w-4 h-4 text-primary" />
+            <span className="font-medium">{property.bathrooms} <span className="font-light text-xs sm:text-sm opacity-80">Baths</span></span>
           </div>
-          <div className="flex items-center gap-1 md:gap-2">
-            <SquareGanttChart className="w-3 h-3 md:w-4 md:h-4" />
-            <span className="font-light">{property.area.toLocaleString()} sqft</span>
+          <div className="flex items-center gap-1.5">
+            <SquareGanttChart className="w-4 h-4 text-primary" />
+            <span className="font-medium">{property.area.toLocaleString()} <span className="font-light text-xs sm:text-sm opacity-80">sqft</span></span>
           </div>
-        </div>
-
-        <div className="flex justify-between items-center pt-2">
-          <Button variant="default" className="w-full rounded-full bg-primary hover:bg-[#433E38] text-white transition-all duration-300 dark:bg-white dark:text-[#2C2A26] dark:hover:bg-gray-200 text-sm md:text-base py-2 md:py-3" asChild>
-            <Link href={`/properties/${property.id}#inquire`}>
-              View Details
-            </Link>
-          </Button>
         </div>
       </CardContent>
     </Card>

@@ -60,6 +60,16 @@ const menuItems = [
     icon: Mail,
   },
   {
+    href: "/admin/our-projects",
+    label: "Our Projects",
+    icon: Building2,
+  },
+  {
+    href: "/admin/featured-properties",
+    label: "Featured Properties",
+    icon: LayoutDashboard,
+  },
+  {
     href: "/admin/property-config",
     label: "Property Config",
     icon: Settings,

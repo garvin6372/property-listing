@@ -27,10 +27,10 @@ export function HeroSearch() {
   return (
     <div className="w-full bg-white py-16 px-4 border-b border-gray-100">
       <div className="max-w-4xl mx-auto text-center">
-        <h1 className="text-3xl md:text-4xl font-serif text-[#2C2A26] mb-4">
+        <h1 className="text-3xl md:text-5xl font-serif text-foreground font-light tracking-wide mb-6">
           Find your perfect property
         </h1>
-        <p className="text-muted-foreground mb-8 font-light">
+        <p className="text-muted-foreground mb-10 text-lg font-light tracking-wide">
           Discover a wide range of properties for sale and rent in Dubai and London.
         </p>
 
@@ -94,11 +94,11 @@ export function HeroSearch() {
 
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 text-sm">
             <span className="text-muted-foreground">Or explore by region:</span>
-            <div className="flex gap-2">
-              <Link href="/search/london" className="px-4 py-2 rounded-full bg-gray-100 hover:bg-gray-200 text-[#2C2A26] transition-colors">
+            <div className="flex gap-3">
+              <Link href="/search/london" className="px-5 py-2 rounded-full border border-border/40 bg-muted hover:bg-accent text-foreground font-light tracking-wide transition-colors">
                 London
               </Link>
-              <Link href="/search/dubai" className="px-4 py-2 rounded-full bg-gray-100 hover:bg-gray-200 text-[#2C2A26] transition-colors">
+              <Link href="/search/dubai" className="px-5 py-2 rounded-full border border-border/40 bg-muted hover:bg-accent text-foreground font-light tracking-wide transition-colors">
                 Dubai
               </Link>
             </div>

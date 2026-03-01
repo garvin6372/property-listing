@@ -68,16 +68,16 @@ function SearchContent() {
 
     const filteredProperties = allProperties.filter(property => {
         const typeMatch = !type || type.length === 0 || type.includes('all') || type.includes(property.type);
-        const statusMatch = status === 'all' || 
-                          status === property.status || 
-                          (property.dubaiStatus && status === property.dubaiStatus);
+        const statusMatch = status === 'all' ||
+            status === property.status ||
+            (property.dubaiStatus && status === property.dubaiStatus);
         const minPriceMatch = !minPrice || property.price >= minPrice;
         const maxPriceMatch = !maxPrice || property.price <= maxPrice;
         const bedroomsMatch = bedrooms === undefined || String(bedrooms) === 'any' || bedrooms === property.bedrooms;
         const bathroomsMatch = bathrooms === undefined || String(bathrooms) === 'any' || bathrooms === property.bathrooms;
-        const locationMatch = !location || location === 'all' || 
-          (property.location && property.location.toLowerCase().includes(location.toLowerCase())) || 
-          (property.region && property.region.toLowerCase().includes(location.toLowerCase()));
+        const locationMatch = !location || location === 'all' ||
+            (property.location && property.location.toLowerCase().includes(location.toLowerCase())) ||
+            (property.region && property.region.toLowerCase().includes(location.toLowerCase()));
 
         return typeMatch && statusMatch && minPriceMatch && maxPriceMatch && bedroomsMatch && bathroomsMatch && locationMatch;
     }).sort((a, b) => {
@@ -128,18 +128,18 @@ function SearchContent() {
                         </div>
                         {location && (
                             <div className="mt-4 text-center text-sm text-muted-foreground">
-                                Searching in: <span className="font-medium text-[#2C2A26]">{location}</span>
+                                Searching in: <span className="font-medium text-foreground">{location}</span>
                             </div>
                         )}
                     </form>
-                    
+
                     <div className="mt-8 text-center">
                         <p className="text-muted-foreground mb-4">Or browse properties by region:</p>
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                            <Link href="/search/dubai" className="px-6 py-3 rounded-full bg-[#2C2A26] text-white hover:bg-[#433E38] transition-colors">
+                            <Link href="/search/dubai" className="px-6 py-3 rounded-full bg-primary text-white hover:bg-primary/90 transition-colors">
                                 Dubai Properties
                             </Link>
-                            <Link href="/search/london" className="px-6 py-3 rounded-full bg-[#2C2A26] text-white hover:bg-[#433E38] transition-colors">
+                            <Link href="/search/london" className="px-6 py-3 rounded-full bg-primary text-white hover:bg-primary/90 transition-colors">
                                 London Properties
                             </Link>
                         </div>
@@ -152,7 +152,7 @@ function SearchContent() {
                     <PropertyFilters />
                     <main className="lg:col-span-12">
                         <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-4">
-                            <h1 className="text-2xl font-serif font-medium tracking-tight text-[#2C2A26] dark:text-white">Properties <span className="text-muted-foreground font-light text-lg">({filteredProperties.length} properties found)</span></h1>
+                            <h1 className="text-2xl font-serif font-medium tracking-tight text-foreground dark:text-white">Properties <span className="text-muted-foreground font-light text-lg">({filteredProperties.length} properties found)</span></h1>
                             <div className="flex items-center gap-2 w-full md:w-auto">
                                 <Button variant="ghost" size="sm" onClick={toggleFilter} className="hidden md:flex gap-2">
                                     <Filter className="h-4 w-4" />
@@ -182,14 +182,14 @@ function SearchContent() {
                                         <SelectItem value="price-desc">Price: High to Low</SelectItem>
                                     </SelectContent>
                                 </Select>
-                                <ToggleGroup type="single" defaultValue="grid" variant="outline" className="bg-card border rounded-md p-1 h-10 gap-0" onValueChange={(value) => value && setView(value)}>
+                                {/* <ToggleGroup type="single" defaultValue="grid" variant="outline" className="bg-card border rounded-md p-1 h-10 gap-0" onValueChange={(value) => value && setView(value)}>
                                     <ToggleGroupItem value="grid" aria-label="Grid view" className="border-none data-[state=on]:bg-background">
                                         <Grid3x3 className="h-4 w-4" />
                                     </ToggleGroupItem>
                                     <ToggleGroupItem value="list" aria-label="List view" className="border-none data-[state=on]:bg-background">
                                         <List className="h-4 w-4" />
                                     </ToggleGroupItem>
-                                </ToggleGroup>
+                                </ToggleGroup> */}
                             </div>
                         </div>
                         {paginatedProperties.length > 0 ? (

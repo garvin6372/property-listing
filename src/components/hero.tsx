@@ -15,11 +15,12 @@ const Hero: React.FC = () => {
         <section className="relative w-full h-[500px] md:h-[580px] lg:h-[740px] overflow-hidden bg-gray-200">
             {/* Background Video */}
             <div className="absolute inset-0 w-full h-full">
-                <video 
-                    autoPlay 
-                    loop 
-                    muted 
+                <video
+                    autoPlay
+                    loop
+                    muted
                     playsInline
+                    preload="auto"
                     className="w-full h-full object-cover contrast-[0.8] brightness-[0.9]"
                 >
                     <source src="/1765296760046076.mp4" type="video/mp4" />
@@ -43,14 +44,14 @@ const Hero: React.FC = () => {
 
                     <Link
                         href="#featured-properties"
-                        className="group relative px-8 py-3 md:px-10 md:py-4 bg-white text-[#2C2A26] rounded-full text-sm md:text-sm font-semibold uppercase tracking-widest hover:bg-gray-50 transition-all duration-50 overflow-hidden shadow-lg hover:shadow-xl inline-block"
+                        className="group relative px-8 py-3 w-full sm:w-auto md:px-10 md:py-4 bg-primary text-primary-foreground hover:bg-primary/90 rounded-full text-sm md:text-sm font-semibold uppercase tracking-widest transition-all duration-300 overflow-hidden shadow-lg hover:shadow-xl inline-block"
                     >
-                        <span className="relative z-10 group-hover:text-[#2C2A26]">Explore Listings</span>
+                        <span className="relative z-10">Explore Listings</span>
                     </Link>
                 </div>
-                <div className="mt-2 flex justify-center">
+                <div className="mt-4 flex w-full sm:w-auto justify-center">
                     <ValuationModal>
-                        <Button className="rounded-full bg-white text-[#2C2A26] hover:bg-gray-100 transition-all duration-300 px-4 py-3 md:px-6 md:py-4 text-base md:text-lg">
+                        <Button className="w-full sm:w-auto rounded-full bg-white text-foreground hover:bg-gray-100 transition-all duration-300 px-6 py-4 md:px-8 md:py-6 text-base md:text-lg shadow-lg font-medium">
                             Get a Free Valuation
                         </Button>
                     </ValuationModal>

@@ -5,6 +5,7 @@ import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { getClientFeaturedProperties } from '@/lib/data';
 import { PropertyCard } from '@/components/property-card';
+import { Button } from '@/components/ui/button';
 import Hero from "@/components/hero";
 import { Testimonials } from "@/components/testimonials";
 import { CitySections } from "@/components/city-sections";
@@ -100,20 +101,26 @@ export default function Home() {
         {/* <HeroSearch /> */}
 
         {/* Featured Properties Section */}
-        <div id="featured-properties" className="container mx-auto px-4 py-12 md:py-24 scroll-mt-20 md:scroll-mt-28">
-          <div className="flex flex-col md:flex-row items-end justify-between mb-10 md:mb-12 gap-6">
+        <div id="featured-properties" className="container mx-auto px-4 py-16 md:py-32 scroll-mt-20 md:scroll-mt-28">
+          <div className="flex flex-col md:flex-row items-end justify-between mb-10 md:mb-16 gap-6">
             <div className="max-w-2xl">
-              <span className="text-sm font-medium uppercase tracking-widest text-muted-foreground mb-2 block">Exclusive Listings</span>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-[#2C2A26] dark:text-white leading-tight">
+              <span className="text-sm font-medium uppercase tracking-[0.2em] text-muted-foreground/80 mb-3 block">Exclusive Listings</span>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-foreground font-light leading-tight tracking-wide">
                 Featured Properties
               </h2>
-              <p className="text-muted-foreground mt-3 md:mt-4 text-base md:text-lg font-light">
+              <p className="text-muted-foreground mt-4 md:mt-6 text-lg font-light leading-relaxed">
                 Discover our handpicked selection of premium properties in prime locations.
               </p>
             </div>
-            {/* <Button asChild variant="outline" className="rounded-full px-6 md:px-8 h-10 md:h-12 border-primary text-primary hover:bg-primary hover:text-white dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-primary transition-all duration-300">
-              <Link href="/search">View All Properties</Link>
-            </Button> */}
+            <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
+              {/* Optional: Simple Filters like 'London' / 'Dubai' / 'All' or a modal trigger */}
+              <Button asChild variant="outline" className="w-full sm:w-auto rounded-full px-6 md:px-8 h-10 md:h-12 border-border text-foreground hover:bg-muted font-medium transition-all duration-300">
+                <Link href="/search">Advanced Filters</Link>
+              </Button>
+              <Button asChild className="w-full sm:w-auto rounded-full px-6 md:px-8 h-10 md:h-12 bg-primary text-primary-foreground hover:bg-primary/90 font-medium transition-all duration-300 shadow-sm hover:shadow-md">
+                <Link href="/search">View All Properties</Link>
+              </Button>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
@@ -136,33 +143,33 @@ export default function Home() {
         <Testimonials />
 
         {/* When you need experts Section */}
-        <div className="bg-[#2C2A26] text-white py-12 md:py-24">
+        <div className="bg-muted/30 py-20 md:py-32">
           <div className="container mx-auto px-4">
-            <div className="flex flex-col md:flex-row justify-between items-start mb-12 md:mb-16 gap-6 md:gap-8">
+            <div className="flex flex-col md:flex-row justify-between items-start mb-12 md:mb-20 gap-6 md:gap-8">
               <div>
-                {/* <span className="text-sm font-medium uppercase tracking-widest text-white/60 mb-2 block">Our Expertise</span> */}
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-white leading-tight">
+                <span className="text-sm font-medium uppercase tracking-[0.2em] text-muted-foreground/80 mb-3 block">Our Expertise</span>
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-foreground font-light leading-tight tracking-wide">
                   Our services
                 </h2>
               </div>
-              <p className="max-w-md text-white/70 font-light text-base md:text-lg">
+              <p className="max-w-md text-muted-foreground font-light text-lg leading-relaxed mt-4 md:mt-0">
                 We provide market-leading advice and support to help you make the right property decisions.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
               {expertCards.map((card, index) => (
                 <Link href={card.href} key={index} className="group">
-                  <div className="h-full bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 p-6 md:p-8 rounded-xl flex flex-col justify-between min-h-[240px] md:min-h-[280px]">
+                  <div className="h-full bg-background border border-border/40 shadow-soft hover:shadow-soft-lg transition-all duration-700 ease-luxury p-8 md:p-10 rounded-xl flex flex-col justify-between min-h-[280px] md:min-h-[320px]">
                     <div>
-                      <div className="flex justify-end mb-4 md:mb-6">
-                        <ArrowUpRight className="h-5 w-5 md:h-6 md:w-6 text-white/40 group-hover:text-white transition-colors" />
+                      <div className="flex justify-end mb-6 md:mb-8">
+                        <ArrowUpRight className="h-5 w-5 md:h-6 md:w-6 text-muted-foreground/40 group-hover:text-primary transition-all duration-500 ease-luxury transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                       </div>
-                      <h3 className="font-serif text-xl md:text-2xl mb-3 md:mb-4 text-white group-hover:translate-x-1 transition-transform duration-300">{card.title}</h3>
+                      <h3 className="font-serif text-xl md:text-2xl mb-3 md:mb-4 text-foreground/80 font-light tracking-wide">{card.title}</h3>
                     </div>
                     <div>
-                      <p className="text-3xl md:text-5xl font-serif text-white/90 mb-1 md:mb-2">{card.stat}</p>
-                      <h3 className="text-white/50 text-xl md:text-2xl leading-relaxed">{card.description}</h3>
+                      <p className="text-3xl md:text-4xl lg:text-5xl font-serif text-foreground font-light tracking-wide leading-tight mb-2 md:mb-4">{card.stat}</p>
+                      <h3 className="text-primary/70 text-lg md:text-xl font-light tracking-widest uppercase">{card.description}</h3>
                     </div>
                   </div>
                 </Link>

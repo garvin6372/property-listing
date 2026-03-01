@@ -36,7 +36,12 @@ const valuationSchema = z.object({
   name: z.string().min(2, "Name is required"),
   email: z.string().email("Invalid email address"),
   phone: z.string().min(5, "Phone number is required"),
-  message: z.string().min(10, "Message must be at least 10 characters"),
+  propertyType: z.string().optional(),
+  location: z.string().optional(),
+  size: z.string().optional(),
+  condition: z.string().optional(),
+  expectedPrice: z.string().optional(),
+  message: z.string().optional(),
 });
 
 // Helper function to convert our Property type to Supabase property
@@ -160,6 +165,45 @@ export async function deleteProperty(id: string) {
   }
 }
 
+export async function togglePropertyFeatured(id: string, isFeatured: boolean) {
+  const admin = supabaseAdmin();
+  try {
+    const { error } = await admin
+      .from('properties')
+      .update({ is_featured: isFeatured })
+      .eq('id', id);
+
+    if (error) throw error;
+
+    revalidatePath('/admin/featured-properties');
+    revalidatePath('/');
+    return { success: true, message: "Property featured status updated successfully." };
+  } catch (error) {
+    console.error('Error updating featured status:', error);
+    return { success: false, message: "Failed to update property." };
+  }
+}
+
+export async function togglePropertyProject(id: string, isProject: boolean) {
+  const admin = supabaseAdmin();
+  try {
+    const { error } = await admin
+      .from('properties')
+      .update({ is_project: isProject })
+      .eq('id', id);
+
+    if (error) throw error;
+
+    revalidatePath('/admin/our-projects');
+    revalidatePath('/our-projects');
+    revalidatePath('/');
+    return { success: true, message: "Project status updated successfully." };
+  } catch (error) {
+    console.error('Error updating project status:', error);
+    return { success: false, message: "Failed to update property." };
+  }
+}
+
 export async function submitInquiry(prevState: any, formData: FormData) {
   const admin = supabaseAdmin();
   // Validate form data
@@ -236,6 +280,11 @@ export async function submitValuation(prevState: any, formData: FormData) {
     name: formData.get('name'),
     email: formData.get('email'),
     phone: formData.get('phone'),
+    propertyType: formData.get('propertyType'),
+    location: formData.get('location'),
+    size: formData.get('size'),
+    condition: formData.get('condition'),
+    expectedPrice: formData.get('expectedPrice'),
     message: formData.get('message'),
   });
 
@@ -247,6 +296,17 @@ export async function submitValuation(prevState: any, formData: FormData) {
     };
   }
 
+  const detailedMessage = `
+Property Type: ${validatedFields.data.propertyType || 'N/A'}
+Location: ${validatedFields.data.location || 'N/A'}
+Size: ${validatedFields.data.size || 'N/A'}
+Condition: ${validatedFields.data.condition || 'N/A'}
+Expected Price: ${validatedFields.data.expectedPrice || 'N/A'}
+
+Additional Details:
+${validatedFields.data.message || 'N/A'}
+  `.trim();
+
   try {
     const { data, error } = await admin
       .from('valuations')
@@ -254,7 +314,7 @@ export async function submitValuation(prevState: any, formData: FormData) {
         name: validatedFields.data.name,
         email: validatedFields.data.email,
         phone: validatedFields.data.phone,
-        message: validatedFields.data.message,
+        message: detailedMessage,
       }])
       .select()
       .single();
@@ -275,14 +335,21 @@ New Valuation Request
 Name: ${validatedFields.data.name}
 Email: ${validatedFields.data.email}
 Phone: ${validatedFields.data.phone}
-Message: ${validatedFields.data.message}
+
+${detailedMessage}
             `,
         html: `
 <h1>New Valuation Request</h1>
 <p><strong>Name:</strong> ${validatedFields.data.name}</p>
 <p><strong>Email:</strong> ${validatedFields.data.email}</p>
 <p><strong>Phone:</strong> ${validatedFields.data.phone}</p>
-<p><strong>Message:</strong> ${validatedFields.data.message}</p>
+<h3>Property Details</h3>
+<p><strong>Type:</strong> ${validatedFields.data.propertyType || 'N/A'}</p>
+<p><strong>Location:</strong> ${validatedFields.data.location || 'N/A'}</p>
+<p><strong>Size:</strong> ${validatedFields.data.size || 'N/A'}</p>
+<p><strong>Condition:</strong> ${validatedFields.data.condition || 'N/A'}</p>
+<p><strong>Expected Price:</strong> ${validatedFields.data.expectedPrice || 'N/A'}</p>
+<p><strong>Additional Details:</strong><br/>${validatedFields.data.message || 'N/A'}</p>
             `
       });
     }

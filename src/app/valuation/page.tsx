@@ -52,7 +52,7 @@ export default function ValuationPage() {
       description: "You'll be given your free property valuation with no obligation to sell your home with us.",
     },
   ];
-  
+
   useEffect(() => {
     document.title = "Property Valuation | Skyvera";
   }, []);
@@ -103,20 +103,20 @@ export default function ValuationPage() {
             <div>
               <h2 className="text-2xl font-semibold mb-3">Book your free valuation</h2>
               <Dialog>
-                  <DialogTrigger asChild>
-                      <Button size="lg" className="h-12 w-full sm:w-auto">
-                          Get Started <ChevronRight className="ml-2 h-5 w-5" />
-                      </Button>
-                  </DialogTrigger>
-                  <DialogContent className="sm:max-w-[425px]">
-                      <DialogHeader>
-                      <DialogTitle>Book a Free Valuation</DialogTitle>
-                      <DialogDescription>
-                          Fill in your details below and one of our experts will get in touch.
-                      </DialogDescription>
-                      </DialogHeader>
-                      <ValuationForm />
-                  </DialogContent>
+                <DialogTrigger asChild>
+                  <Button size="lg" className="h-12 w-full sm:w-auto">
+                    Get Started <ChevronRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[700px]">
+                  <DialogHeader>
+                    <DialogTitle>Book a Free Valuation</DialogTitle>
+                    <DialogDescription>
+                      Fill in your details below and one of our experts will get in touch.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <ValuationForm />
+                </DialogContent>
               </Dialog>
             </div>
           </div>
@@ -127,19 +127,19 @@ export default function ValuationPage() {
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             <div className="max-w-md">
               <h2 className="text-3xl font-bold mb-6">How does a free property valuation work?</h2>
-               <Dialog>
-                  <DialogTrigger asChild>
-                       <Button size="lg">Book your free valuation</Button>
-                  </DialogTrigger>
-                  <DialogContent className="sm:max-w-[425px]">
-                      <DialogHeader>
-                      <DialogTitle>Book a Free Valuation</DialogTitle>
-                      <DialogDescription>
-                          Fill in your details below and one of our experts will get in touch.
-                      </DialogDescription>
-                      </DialogHeader>
-                      <ValuationForm />
-                  </DialogContent>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button size="lg">Book your free valuation</Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[700px]">
+                  <DialogHeader>
+                    <DialogTitle>Book a Free Valuation</DialogTitle>
+                    <DialogDescription>
+                      Fill in your details below and one of our experts will get in touch.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <ValuationForm />
+                </DialogContent>
               </Dialog>
             </div>
             <div className="space-y-8">

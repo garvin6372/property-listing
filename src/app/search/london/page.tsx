@@ -70,10 +70,10 @@ function LondonSearchContent() {
     const filteredProperties = allProperties.filter(property => {
         // Filter by London region
         const regionMatch = property.region === 'London';
-        
+
         // Filter by status (Buy/Rent)
         const statusMatch = status === 'all' || status === property.status;
-        
+
         const typeMatch = !type || type.length === 0 || type.includes('all') || type.includes(property.type);
         const minPriceMatch = !minPrice || property.price >= minPrice;
         const maxPriceMatch = !maxPrice || property.price <= maxPrice;
@@ -112,7 +112,7 @@ function LondonSearchContent() {
             <div className="border-b border-gray-100 py-12">
                 <div className="container mx-auto px-4">
                     <form onSubmit={handleSearch} className="max-w-4xl mx-auto">
-                        <h1 className="text-3xl md:text-4xl font-serif mb-8 text-center">
+                        <h1 className="text-4xl md:text-5xl font-serif mb-8 text-center font-light tracking-wide text-foreground">
                             London Properties
                         </h1>
                         <div className="flex flex-col md:flex-row gap-4">
@@ -131,8 +131,8 @@ function LondonSearchContent() {
                             </Button>
                         </div>
                         {location && (
-                            <div className="mt-4 text-center text-sm text-muted-foreground">
-                                Searching in: <span className="font-medium text-[#2C2A26]">{location}</span>
+                            <div className="mt-4 text-center text-sm text-muted-foreground/80 font-light tracking-wide uppercase">
+                                Searching in: <span className="font-medium text-foreground tracking-normal">{location}</span>
                             </div>
                         )}
                     </form>
@@ -143,9 +143,9 @@ function LondonSearchContent() {
                 <div className="lg:grid lg:grid-cols-12 lg:gap-8">
                     <PropertyFilters />
                     <main className="lg:col-span-12">
-                        <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-4">
-                            <h1 className="text-2xl font-serif font-medium tracking-tight text-[#2C2A26] dark:text-white">London Properties <span className="text-muted-foreground font-light text-lg">({filteredProperties.length} properties found)</span></h1>
-                            <div className="flex flex-col sm:flex-row items-center gap-2 w-full md:w-auto">
+                        <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-6">
+                            <h1 className="text-3xl font-serif font-light tracking-wide text-foreground">London Properties <span className="text-muted-foreground font-light text-lg tracking-normal">({filteredProperties.length} properties found)</span></h1>
+                            <div className="flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
                                 <Button variant="ghost" size="sm" onClick={toggleFilter} className="flex gap-2">
                                     <Filter className="h-4 w-4" />
                                     Filters

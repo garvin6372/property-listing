@@ -20,6 +20,8 @@ export type Property = {
   bedrooms: number;
   bathrooms: number;
   area: number; // in sqft
+  isProject?: boolean;
+  isFeatured?: boolean;
   createdAt?: string;
 };
 

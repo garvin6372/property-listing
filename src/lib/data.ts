@@ -20,6 +20,8 @@ function formatProperty(property: any): Property & { createdAt?: string } {
     bedrooms: property.bedrooms,
     bathrooms: property.bathrooms,
     area: property.area,
+    isProject: property.is_project || false,
+    isFeatured: property.is_featured || false,
     createdAt: property.created_at,
   };
 }
@@ -80,6 +82,7 @@ export async function getClientFeaturedProperties(search?: string) {
   let query = client
     .from('properties')
     .select('*')
+    .eq('is_featured', true)
     .limit(3)
     .order('created_at', { ascending: false });
 
@@ -152,6 +155,29 @@ export async function getProperties() {
   return propertiesWithImages;
 }
 
+export async function getProjectProperties() {
+  const admin = supabaseAdmin();
+  await delay(100);
+
+  const { data, error } = await admin
+    .from('properties')
+    .select('*')
+    .eq('is_project', true)
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error('Error fetching project properties:', error);
+    throw new Error('Failed to fetch project properties');
+  }
+
+  const propertiesWithImages = data.map((p: any) => formatProperty(p)).map((p: Property) => ({
+    ...p,
+    images: convertImageIdsToImages(p.imageIds)
+  }));
+
+  return propertiesWithImages;
+}
+
 export async function getPropertyById(id: string) {
   const admin = supabaseAdmin();
   await delay(100);
@@ -196,6 +222,8 @@ export async function addProperty(propertyData: Omit<Property, 'id'>) {
       bedrooms: propertyData.bedrooms,
       bathrooms: propertyData.bathrooms,
       area: propertyData.area,
+      is_project: propertyData.isProject || false,
+      is_featured: propertyData.isFeatured || false,
     }])
     .select()
     .single();
@@ -228,6 +256,8 @@ export async function updateProperty(id: string, propertyData: Partial<Property>
       bedrooms: propertyData.bedrooms,
       bathrooms: propertyData.bathrooms,
       area: propertyData.area,
+      is_project: propertyData.isProject,
+      is_featured: propertyData.isFeatured,
     })
     .eq('id', id)
     .select()
@@ -467,4 +497,29 @@ export async function getCompanies() {
   // Extract company names and remove duplicates
   const companies = data.map((p: any) => p.company);
   return [...new Set(companies)].filter(Boolean); // Remove null/undefined values
+}
+
+// Add function to fetch our projects
+export async function getClientProjectProperties() {
+  const client = supabaseClient();
+
+  const query = client
+    .from('properties')
+    .select('*')
+    .eq('is_project', true)
+    .order('created_at', { ascending: false });
+
+  const { data, error } = await query;
+
+  if (error) {
+    console.error('Error fetching project properties:', error);
+    throw new Error('Failed to fetch project properties');
+  }
+
+  const propertiesWithImages = data.map((p: any) => formatProperty(p)).map((p: Property) => ({
+    ...p,
+    images: convertImageIdsToImages(p.imageIds)
+  }));
+
+  return propertiesWithImages;
 }

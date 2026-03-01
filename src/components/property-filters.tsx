@@ -127,13 +127,13 @@ function FiltersContent() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between pb-4 border-b border-border/50">
-        <SheetTitle className="flex items-center gap-2 font-serif text-xl font-medium text-[#2C2A26] dark:text-white">
-          <Filter className="w-5 h-5" />
+      <div className="flex items-center justify-between pb-4 border-b border-border/30">
+        <SheetTitle className="flex items-center gap-2 font-serif text-xl font-light tracking-wide text-foreground">
+          <Filter className="w-5 h-5 text-primary" />
           Filter Properties
         </SheetTitle>
         {isFilterActive && (
-          <Button variant="ghost" size="sm" onClick={clearFilters} className="text-sm h-auto p-1 hover:bg-transparent hover:text-[#2C2A26] dark:hover:text-white transition-colors">
+          <Button variant="ghost" size="sm" onClick={clearFilters} className="text-sm h-auto p-1 text-muted-foreground/60 hover:bg-transparent hover:text-foreground transition-colors font-light">
             <X className="w-4 h-4 mr-1" />
             Clear
           </Button>
@@ -192,8 +192,8 @@ function FiltersContent() {
 
         <div className="space-y-4">
           <div className="flex justify-between items-center">
-            <Label className="text-xs uppercase tracking-widest text-muted-foreground font-medium">Price Range</Label>
-            <div className="text-sm font-medium text-[#2C2A26] dark:text-white">
+            <Label className="text-xs uppercase tracking-[0.2em] text-muted-foreground/80 font-medium">Price Range</Label>
+            <div className="text-sm font-light tracking-wide text-foreground">
               {formatPrice(priceRange[0], currentFilters.region === 'London' ? 'GBP' : 'AED')} - {formatPrice(priceRange[1], currentFilters.region === 'London' ? 'GBP' : 'AED')}{priceRange[1] === 50000000 ? '+' : ''}
             </div>
           </div>
@@ -230,7 +230,7 @@ function FiltersContent() {
           </div>
         </div>
 
-        <Button onClick={applyFilters} className="w-full rounded-full bg-primary hover:bg-[#433E38] text-white h-12 text-base font-medium transition-all duration-300 dark:bg-white dark:text-[#2C2A26] dark:hover:bg-gray-200 mt-4">
+        <Button onClick={applyFilters} className="w-full rounded-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-soft hover:shadow-soft-lg h-12 text-base font-medium tracking-wide transition-all duration-700 ease-luxury mt-8">
           <Search className="w-4 h-4 mr-2" />
           Search Properties
         </Button>
