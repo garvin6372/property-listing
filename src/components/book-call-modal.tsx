@@ -54,19 +54,19 @@ export function BookCallModal() {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button className="flex gap-2 md:flex md:gap-2">
+                <Button className="flex items-center justify-center h-9 w-9 p-0 md:h-10 md:w-auto md:px-4 md:py-2 md:flex md:gap-2">
                     <PhoneCall className="h-4 w-4" />
                     <span className="hidden md:inline">Book a Free Consultation</span>
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
+            <DialogContent className="sm:max-w-[425px] w-[95vw] sm:w-full rounded-2xl flex flex-col max-h-[90dvh]">
                 <DialogHeader>
                     <DialogTitle>Book a Free Consultation</DialogTitle>
                     <DialogDescription>
                         Fill out the form below and our team will get back to you shortly.
                     </DialogDescription>
                 </DialogHeader>
-                <form onSubmit={handleSubmit} className="grid gap-4 py-4">
+                <form onSubmit={handleSubmit} className="grid gap-4 py-4 overflow-y-auto overflow-x-hidden pr-2 flex-grow min-h-0">
                     <div className="grid gap-2">
                         <Label htmlFor="name">Name</Label>
                         <Input id="name" name="name" placeholder="John Doe" required />

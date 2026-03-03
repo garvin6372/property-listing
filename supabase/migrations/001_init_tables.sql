@@ -4,7 +4,7 @@ CREATE TABLE properties (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   title TEXT NOT NULL,
   description TEXT NOT NULL,
-  price INTEGER NOT NULL,
+  price NUMERIC NOT NULL,
   location TEXT NOT NULL,
   region TEXT NOT NULL CHECK (region IN ('Dubai', 'London')),
   type TEXT NOT NULL CHECK (type IN ('Apartment', 'Villa', 'Townhouse', 'Office', 'Penthouse')),
@@ -13,7 +13,7 @@ CREATE TABLE properties (
   image_ids TEXT[],
   bedrooms INTEGER NOT NULL,
   bathrooms INTEGER NOT NULL,
-  area INTEGER NOT NULL
+  area NUMERIC NOT NULL
 );
 
 -- Create inquiries table

@@ -43,7 +43,7 @@ interface FormState {
 }
 
 // Frontend validation function
-function validatePropertyForm(formData: FormData): { isValid: boolean; errors: FormState['errors'] } {
+function validatePropertyForm(formData: FormData, uploadedImagesCount: number): { isValid: boolean; errors: FormState['errors'] } {
   const errors: FormState['errors'] = {};
   let isValid = true;
 
@@ -110,10 +110,25 @@ function validatePropertyForm(formData: FormData): { isValid: boolean; errors: F
     isValid = false;
   }
 
-  // Area validation (now allows decimals)
+  // Area validation
   const area = Number(formData.get('area'));
   if (isNaN(area) || area <= 0) {
     errors.area = ['Area must be a valid number greater than 0'];
+    isValid = false;
+  }
+
+  // Company validation (Required for Dubai)
+  if (region === 'Dubai') {
+    const company = formData.get('company') as string;
+    if (!company || company.trim().length < 2) {
+      errors.company = ['Company is required for Dubai properties'];
+      isValid = false;
+    }
+  }
+
+  // Image validation
+  if (uploadedImagesCount === 0) {
+    errors.imageIds = ['At least one image is required'];
     isValid = false;
   }
 
@@ -136,6 +151,25 @@ export function PropertyForm({ property }: PropertyFormProps) {
 
   const [selectedRegion, setSelectedRegion] = useState(property?.region || '');
   const [selectedStatus, setSelectedStatus] = useState(property?.status || '');
+  const [selectedType, setSelectedType] = useState(property?.type || '');
+  const [selectedDubaiStatus, setSelectedDubaiStatus] = useState(property?.dubaiStatus || 'none');
+  const [selectedCompany, setSelectedCompany] = useState(property?.company || '');
+
+  // Form data for controlled text fields
+  const [formDataState, setFormDataState] = useState({
+    title: property?.title || '',
+    description: property?.description || '',
+    location: property?.location || '',
+    price: property?.price?.toString() || '',
+    bedrooms: property?.bedrooms?.toString() || '',
+    bathrooms: property?.bathrooms?.toString() || '',
+    area: property?.area?.toString() || '',
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormDataState(prev => ({ ...prev, [name]: value }));
+  };
 
   // State for dynamic property types and listing statuses
   const [propertyTypes, setPropertyTypes] = useState<string[]>([]);
@@ -243,15 +277,9 @@ export function PropertyForm({ property }: PropertyFormProps) {
   const isEditing = !!property;
 
   // Handle form submission with frontend validation
-  const handleSubmit = (formData: FormData) => {
-    // Add validation for at least one image
-    if (uploadedImages.length === 0) {
-      setValidationErrors({ imageIds: ['At least one image is required'] });
-      return;
-    }
-
+  const handleSubmit = async (formData: FormData) => {
     // Perform frontend validation
-    const { isValid, errors } = validatePropertyForm(formData);
+    const { isValid, errors } = validatePropertyForm(formData, uploadedImages.length);
     setValidationErrors(errors);
 
     if (isValid) {
@@ -261,6 +289,15 @@ export function PropertyForm({ property }: PropertyFormProps) {
 
       // Call the server action
       return formAction(formData);
+    } else {
+      // If invalid, show a toast to the user
+      toast({
+        variant: "destructive",
+        title: "Validation Error",
+        description: "Please check the form for errors before submitting.",
+      });
+      // Ensure we don't proceed to the backend
+      return;
     }
   };
 
@@ -275,7 +312,7 @@ export function PropertyForm({ property }: PropertyFormProps) {
           <div className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="title">Title</Label>
-              <Input id="title" name="title" defaultValue={property?.title} />
+              <Input id="title" name="title" value={formDataState.title} onChange={handleInputChange} />
               {(state.errors?.title || validationErrors.title) && (
                 <p className="text-sm text-destructive">
                   {state.errors?.title?.[0] || validationErrors.title?.[0]}
@@ -284,7 +321,7 @@ export function PropertyForm({ property }: PropertyFormProps) {
             </div>
             <div className="space-y-2">
               <Label htmlFor="description">Description</Label>
-              <Textarea id="description" name="description" defaultValue={property?.description} />
+              <Textarea id="description" name="description" value={formDataState.description} onChange={handleInputChange} />
               {(state.errors?.description || validationErrors.description) && (
                 <p className="text-sm text-destructive">
                   {state.errors?.description?.[0] || validationErrors.description?.[0]}
@@ -294,7 +331,7 @@ export function PropertyForm({ property }: PropertyFormProps) {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="region">Region</Label>
-                <Select name="region" defaultValue={property?.region} onValueChange={setSelectedRegion}>
+                <Select name="region" value={selectedRegion} onValueChange={setSelectedRegion}>
                   <SelectTrigger><SelectValue placeholder="Select region" /></SelectTrigger>
                   <SelectContent>{regions.map(r => <SelectItem key={r} value={r}>{r}</SelectItem>)}</SelectContent>
                 </Select>
@@ -306,8 +343,7 @@ export function PropertyForm({ property }: PropertyFormProps) {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="location">Location</Label>
-                {/* Changed from Input to Textarea as requested */}
-                <Textarea id="location" name="location" defaultValue={property?.location} />
+                <Textarea id="location" name="location" value={formDataState.location} onChange={handleInputChange} />
                 {(state.errors?.location || validationErrors.location) && (
                   <p className="text-sm text-destructive">
                     {state.errors?.location?.[0] || validationErrors.location?.[0]}
@@ -318,7 +354,7 @@ export function PropertyForm({ property }: PropertyFormProps) {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="type">Property Type</Label>
-                <Select name="type" defaultValue={property?.type}>
+                <Select name="type" value={selectedType} onValueChange={setSelectedType}>
                   <SelectTrigger><SelectValue placeholder="Select type" /></SelectTrigger>
                   <SelectContent>
                     {propertyTypes.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}
@@ -332,7 +368,7 @@ export function PropertyForm({ property }: PropertyFormProps) {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="price">Price</Label>
-                <Input id="price" name="price" type="number" defaultValue={property?.price} />
+                <Input id="price" name="price" type="number" step="0.0001" value={formDataState.price} onChange={handleInputChange} />
                 {(state.errors?.price || validationErrors.price) && (
                   <p className="text-sm text-destructive">
                     {state.errors?.price?.[0] || validationErrors.price?.[0]}
@@ -343,7 +379,7 @@ export function PropertyForm({ property }: PropertyFormProps) {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="status">Listing Status</Label>
-                <Select name="status" defaultValue={property?.status} onValueChange={setSelectedStatus}>
+                <Select name="status" value={selectedStatus} onValueChange={setSelectedStatus}>
                   <SelectTrigger><SelectValue placeholder="Select status" /></SelectTrigger>
                   <SelectContent>
                     {listingStatuses.map(s => <SelectItem key={s} value={s}>{s}</SelectItem>)}
@@ -357,7 +393,7 @@ export function PropertyForm({ property }: PropertyFormProps) {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="dubaiStatus">{selectedRegion} Status</Label>
-                <Select name="dubaiStatus" defaultValue={property?.dubaiStatus || 'none'}>
+                <Select name="dubaiStatus" value={selectedDubaiStatus} onValueChange={setSelectedDubaiStatus}>
                   <SelectTrigger><SelectValue placeholder={`Select ${selectedRegion} status`} /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="none">None</SelectItem>
@@ -369,7 +405,7 @@ export function PropertyForm({ property }: PropertyFormProps) {
             {selectedRegion === 'Dubai' && (
               <div className="space-y-2">
                 <Label htmlFor="company">Company</Label>
-                <Input id="company" name="company" defaultValue={property?.company || ''} />
+                <Input id="company" name="company" value={selectedCompany} onChange={(e) => setSelectedCompany(e.target.value)} />
                 {(state.errors?.company || validationErrors.company) && (
                   <p className="text-sm text-destructive">
                     {state.errors?.company?.[0] || validationErrors.company?.[0]}
@@ -380,7 +416,7 @@ export function PropertyForm({ property }: PropertyFormProps) {
             <div className="grid grid-cols-3 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="bedrooms">Bedrooms</Label>
-                <Input id="bedrooms" name="bedrooms" type="number" defaultValue={property?.bedrooms} />
+                <Input id="bedrooms" name="bedrooms" type="number" value={formDataState.bedrooms} onChange={handleInputChange} />
                 {(state.errors?.bedrooms || validationErrors.bedrooms) && (
                   <p className="text-sm text-destructive">
                     {state.errors?.bedrooms?.[0] || validationErrors.bedrooms?.[0]}
@@ -389,7 +425,7 @@ export function PropertyForm({ property }: PropertyFormProps) {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="bathrooms">Bathrooms</Label>
-                <Input id="bathrooms" name="bathrooms" type="number" defaultValue={property?.bathrooms} />
+                <Input id="bathrooms" name="bathrooms" type="number" value={formDataState.bathrooms} onChange={handleInputChange} />
                 {(state.errors?.bathrooms || validationErrors.bathrooms) && (
                   <p className="text-sm text-destructive">
                     {state.errors?.bathrooms?.[0] || validationErrors.bathrooms?.[0]}
@@ -398,8 +434,7 @@ export function PropertyForm({ property }: PropertyFormProps) {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="area">Area (sqft)</Label>
-                {/* Changed to step="0.01" to allow decimal values */}
-                <Input id="area" name="area" type="number" step="0.01" defaultValue={property?.area} />
+                <Input id="area" name="area" type="number" step="0.00001" value={formDataState.area} onChange={handleInputChange} />
                 {(state.errors?.area || validationErrors.area) && (
                   <p className="text-sm text-destructive">
                     {state.errors?.area?.[0] || validationErrors.area?.[0]}

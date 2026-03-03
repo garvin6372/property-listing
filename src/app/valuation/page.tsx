@@ -108,7 +108,7 @@ export default function ValuationPage() {
                     Get Started <ChevronRight className="ml-2 h-5 w-5" />
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[700px]">
+                <DialogContent className="sm:max-w-[700px] w-[95vw] sm:w-full rounded-2xl flex flex-col max-h-[90dvh]">
                   <DialogHeader>
                     <DialogTitle>Book a Free Valuation</DialogTitle>
                     <DialogDescription>
@@ -131,7 +131,7 @@ export default function ValuationPage() {
                 <DialogTrigger asChild>
                   <Button size="lg">Book your free valuation</Button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[700px]">
+                <DialogContent className="sm:max-w-[700px] w-[95vw] sm:w-full rounded-2xl flex flex-col max-h-[90dvh]">
                   <DialogHeader>
                     <DialogTitle>Book a Free Valuation</DialogTitle>
                     <DialogDescription>

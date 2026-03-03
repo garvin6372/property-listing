@@ -23,8 +23,8 @@ const mainNavItems = [
             { href: "/search?status=Rent", label: "Rent", desc: "Find properties to rent" },
             { href: "/contact", label: "Sell", desc: "List your property with us" },
             { href: "/projects", label: "Invest", desc: "Discover investment opportunities" },
-            { href: "/search", label: "Advanced Search", desc: "Filter with precision" },
-            { href: "/valuation", label: "Free Valuation", desc: "Get an accurate estimate" },
+            { href: "/search", label: "Advanced Search", desc: "" },
+            { href: "/valuation", label: "Free Valuation", desc: "" },
         ]
     },
     { href: "/projects", label: "Our Projects", icon: Home },
@@ -126,7 +126,7 @@ export default function SiteHeader() {
                     </nav>
 
                     {/* Right Side: Actions & Mobile Hamburger */}
-                    <div className="flex items-center gap-2 md:gap-4 shrink-0">
+                    <div className="flex items-center gap-1 sm:gap-2 md:gap-4 shrink-0">
                         <HeaderSearchModal />
 
                         <Button variant="ghost" size="icon" onClick={toggleTheme} aria-label="Toggle theme" className="h-9 w-9 md:h-10 md:w-10">

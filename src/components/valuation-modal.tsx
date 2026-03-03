@@ -56,14 +56,14 @@ export function ValuationModal({ children }: { children: React.ReactNode }) {
             <DialogTrigger asChild>
                 {children}
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[500px]">
+            <DialogContent className="sm:max-w-[500px] w-[95vw] sm:w-full rounded-2xl flex flex-col max-h-[90dvh]">
                 <DialogHeader>
                     <DialogTitle>Free Property Valuation</DialogTitle>
                     <DialogDescription>
                         Get an accurate valuation of your property from our experts.
                     </DialogDescription>
                 </DialogHeader>
-                <form onSubmit={handleSubmit} className="grid gap-4 py-4">
+                <form onSubmit={handleSubmit} className="grid gap-4 py-4 overflow-y-auto overflow-x-hidden pr-2 flex-grow min-h-0">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="grid gap-2">
                             <Label htmlFor="name">Name</Label>

@@ -51,7 +51,7 @@ const Hero: React.FC = () => {
                 </div>
                 <div className="mt-4 flex w-full sm:w-auto justify-center">
                     <ValuationModal>
-                        <Button className="w-full sm:w-auto rounded-full bg-white text-foreground hover:bg-gray-100 transition-all duration-300 px-6 py-4 md:px-8 md:py-6 text-base md:text-lg shadow-lg font-medium">
+                        <Button className="w-full sm:w-auto rounded-full bg-white text-slate-900 hover:bg-gray-100 transition-all duration-300 px-6 py-4 md:px-8 md:py-6 text-base md:text-lg shadow-lg font-medium">
                             Get a Free Valuation
                         </Button>
                     </ValuationModal>

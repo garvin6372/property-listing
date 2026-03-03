@@ -37,7 +37,7 @@ export function ValuationForm() {
   }, [state, toast]);
 
   return (
-    <form action={dispatch} className="grid grid-cols-1 md:grid-cols-2 gap-4 py-4">
+    <form action={dispatch} className="grid grid-cols-1 md:grid-cols-2 gap-4 py-4 overflow-y-auto overflow-x-hidden pr-2 flex-grow min-h-0">
       <div className="space-y-2">
         <Label htmlFor="name">Full Name <span className="text-destructive">*</span></Label>
         <Input id="name" name="name" placeholder="John Doe" required />

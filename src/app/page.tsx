@@ -70,25 +70,25 @@ export default function Home() {
       title: "",
       stat: "Find Your Ideal Property",
       description: "Buy",
-      href: "/"
+      href: "#cities"
     },
     {
       title: "",
       stat: "Maximize Your Property Value",
       description: "Sell",
-      href: "/"
+      href: "/valuation"
     },
     {
       title: "",
       stat: "Find Your Perfect Rental",
       description: "Rent",
-      href: "/"
+      href: "#cities"
     },
     {
       title: "",
       stat: "Grow Your Real Estate Portfolio",
       description: "Invest",
-      href: "/"
+      href: "#cities"
     }
   ];
 
@@ -149,7 +149,7 @@ export default function Home() {
               <div>
                 <span className="text-sm font-medium uppercase tracking-[0.2em] text-muted-foreground/80 mb-3 block">Our Expertise</span>
                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-foreground font-light leading-tight tracking-wide">
-                  Our services
+                  Our Services
                 </h2>
               </div>
               <p className="max-w-md text-muted-foreground font-light text-lg leading-relaxed mt-4 md:mt-0">
@@ -160,16 +160,16 @@ export default function Home() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
               {expertCards.map((card, index) => (
                 <Link href={card.href} key={index} className="group">
-                  <div className="h-full bg-background border border-border/40 shadow-soft hover:shadow-soft-lg transition-all duration-700 ease-luxury p-8 md:p-10 rounded-xl flex flex-col justify-between min-h-[280px] md:min-h-[320px]">
+                  <div className="h-full bg-background border border-border/40 shadow-soft hover:shadow-soft-lg transition-all duration-700 ease-luxury p-6 sm:p-8 md:p-10 rounded-xl flex flex-col justify-between min-h-[180px] sm:min-h-[280px] md:min-h-[320px]">
                     <div>
-                      <div className="flex justify-end mb-6 md:mb-8">
+                      <div className="flex justify-end mb-4 sm:mb-6 md:mb-8">
                         <ArrowUpRight className="h-5 w-5 md:h-6 md:w-6 text-muted-foreground/40 group-hover:text-primary transition-all duration-500 ease-luxury transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                       </div>
-                      <h3 className="font-serif text-xl md:text-2xl mb-3 md:mb-4 text-foreground/80 font-light tracking-wide">{card.title}</h3>
+                      {card.title && <h3 className="font-serif text-xl md:text-2xl mb-3 md:mb-4 text-foreground/80 font-light tracking-wide">{card.title}</h3>}
                     </div>
                     <div>
-                      <p className="text-3xl md:text-4xl lg:text-5xl font-serif text-foreground font-light tracking-wide leading-tight mb-2 md:mb-4">{card.stat}</p>
-                      <h3 className="text-primary/70 text-lg md:text-xl font-light tracking-widest uppercase">{card.description}</h3>
+                      <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif text-foreground font-light tracking-wide leading-tight mb-2 md:mb-4">{card.stat}</p>
+                      <h3 className="text-primary/70 text-base sm:text-lg md:text-xl font-light tracking-widest uppercase">{card.description}</h3>
                     </div>
                   </div>
                 </Link>

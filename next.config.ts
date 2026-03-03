@@ -37,11 +37,16 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'nlggdhvjvvtwfpxtnjxk.supabase.co',
+        hostname: 'hpphmihwnptcmxgylven.supabase.co',
         port: '',
         pathname: '/**',
       }
     ],
+  },
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '10mb',
+    },
   },
 };
 
