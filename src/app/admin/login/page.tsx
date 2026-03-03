@@ -31,7 +31,7 @@ function LoginContent() {
   useEffect(() => {
     if (isAuthenticated) {
       const next = searchParams.get('next');
-      router.push(next || '/admin/dashboard');
+      window.location.href = next || '/admin/dashboard';
     }
   }, [isAuthenticated, router, searchParams]);
 
@@ -48,7 +48,7 @@ function LoginContent() {
       const result = await login(email, password);
 
       if (result.success) {
-        router.push('/admin/dashboard');
+        window.location.href = '/admin/dashboard';
       } else {
         setError(result.message);
       }

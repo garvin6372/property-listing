@@ -36,9 +36,9 @@ export default async function ProfilePage() {
             <label className="text-sm font-medium text-muted-foreground">Role</label>
             <p className="text-lg">Administrator</p>
           </div>
-          <div className="pt-4">
+          {/* <div className="pt-4">
             <Button variant="outline" disabled>Change Password</Button>
-          </div>
+          </div> */}
         </CardContent>
       </Card>
     </div>
